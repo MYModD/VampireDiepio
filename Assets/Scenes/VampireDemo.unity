@@ -481,9 +481,9 @@ GameObject:
   - component: {fileID: 1206159197}
   - component: {fileID: 1206159193}
   - component: {fileID: 1206159199}
+  - component: {fileID: 1206159198}
   - component: {fileID: 1206159196}
   - component: {fileID: 1206159194}
-  - component: {fileID: 1206159198}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
