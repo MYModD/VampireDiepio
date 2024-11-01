@@ -7,7 +7,7 @@ public class PlayerTurretRotation : MonoBehaviour
 {
     public Transform _rotateTurret;
     public Transform _debugSquare;
-    private Vector2 hoge;
+    private Vector2 _hoge;
 
     void Start()
     {
@@ -26,8 +26,7 @@ public class PlayerTurretRotation : MonoBehaviour
         _debugSquare.position = new Vector3(worldPostion.x, worldPostion.y, 0);
 
 
-
-        _rotateTurret.LookAt(_debugSquare.position - transform.position);
+        _rotateTurret.LookAt2D(_debugSquare);
 
     }
 

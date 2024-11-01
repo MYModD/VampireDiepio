@@ -14,13 +14,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _maxSpeed = 10f;
 
     public TextMeshProUGUI _text;
-    private Vector2 _velocity;
+    public PlayerFire _playerFire;
+    [HideInInspector]
+    public Vector2 _velocity;
     private Vector2 _inputDirection;
 
     void FixedUpdate()
     {
-
-       
         _velocity += _inputDirection * _acceleration * Time.fixedDeltaTime;
         
         // 操作をしていない場合
@@ -28,17 +28,8 @@ public class PlayerMove : MonoBehaviour
         if (_inputDirection == Vector2.zero)
         {
             _velocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
-           
-        }
+          }
 
-
-        // 小数点細かくなるのでここ要調整
-        //if(_velocity.sqrMagnitude < 0.01f)
-        //{
-        //    _velocity = Vector2.zero;
-        //}
-
-        
         // 速度の制限
         _velocity = Vector2.ClampMagnitude(_velocity, _maxSpeed);
 
@@ -50,10 +41,31 @@ public class PlayerMove : MonoBehaviour
 
     public void Onmove(InputAction.CallbackContext context)
     {
-        Debug.Log("WASD押してます！");
 
         // Input
         _inputDirection = context.ReadValue<Vector2>();
        
     }
+
+    private void OnDrawGizmos()
+    {
+
+        // x y それぞれの長さ
+        Vector3 xLength = new Vector3(_velocity.x, 0, 0); 
+        Vector3 yLength = new Vector3(0, _velocity.y, 0); 
+        // 全体の長さ
+        Vector3 Length = new Vector3(_velocity.x, _velocity.y, 0);
+
+        // x y のDrawGizmo
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(this.transform.position, transform.position + xLength);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(this.transform.position, transform.position + yLength);
+
+        // 全体のDrawGizmo
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(this.transform.position, transform.position + Length);
+    }
+
 }
