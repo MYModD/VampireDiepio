@@ -22,8 +22,10 @@ public class PlayerFire : MonoBehaviour
         {
             var bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
             Vector2 force = new Vector2(_firePostion.position.x - this.transform.position.x, (_firePostion.position.y - this.transform.position.y)) ;
-            bulletObject.GetComponent<Rigidbody2D>().AddForce(force * _multiplyForce, ForceMode2D.Impulse);
-            bulletObject.GetComponent<Rigidbody2D>().velocity += _playerMove._velocity;
+            // 速度与える + プレイヤーのベクトルも+
+            bulletObject.GetComponent<BulletMove>().AddForce((force * _multiplyForce) + _playerMove._velocity);
+            // プレイヤーの反動
+            _playerMove.AddForce(force * -1);
 
         }
     }

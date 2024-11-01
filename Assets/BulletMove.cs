@@ -1,59 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-    public float _timer = 5f;
 
-    private float _timerValue = default;
-    // 物体の質量
-    private float _mass;
+    [Header("減速度")]
+    [SerializeField] private float _deceleration = 2f;
 
-    // 現在の速度
-    private Vector3 _velocity;
+    [Header("最高速度")]
+    [SerializeField] private float _maxSpeed = 10f;
 
-    // 位置
-    private Vector3 _position;
+    [Header("タイマー")]
+    [SerializeField] private float _timer = 5f;
 
-    //
+    [Header("速度ベクトル")]
+    public Vector2 _velocity = default;
 
-    // 現在の位置を取得
-    public Vector3 Position => _position;
+    private float _timerValue = default; // 時間計算用
 
-    // 現在の速度を取得・設定
-    public Vector3 Velocity
+
+    private void FixedUpdate()
     {
-        get => _velocity;
-        set => _velocity = value;
-    }
+        // タイマーが0になったらオブジェクトOFF
+        _timerValue = _timerValue - Time.fixedDeltaTime;
+        if (_timerValue <= 0)
+        {
+            this.gameObject.SetActive(false);
+            Debug.Log("BulletMoveをOFFにしました");
+        }
 
-    // 力を加えるメソッド
-    public void AddForce(Vector3 force)
+
+        // 操作をしていない場合
+        // 慣性を持たせるために減速を追加
+        _velocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
+
+        transform.position += (Vector3)_velocity * Time.fixedDeltaTime;
+
+    }
+    public void AddForce(Vector2 force)
     {
-        // 加速度を計算 (F = ma)
-        Vector3 acceleration = force / _mass;
+        _velocity += force;
 
-        // 現在の速度に加速度を加える
-        _velocity += acceleration * Time.deltaTime; // Δtに基づいて速度を更新
-
-        // 位置を更新
-        _position += _velocity * Time.deltaTime; // 新しい位置を計算
     }
-
-    // 物体を更新するメソッド
-    public void Update()
-    {
-        // ここでは物理的な更新を行う（位置を速度に基づいて更新するなど）
-        _position += _velocity * Time.deltaTime;
-    }
-
-
-
     private void OnEnable()
     {
         _timerValue = _timer;
     }
 
-    
+
 }
