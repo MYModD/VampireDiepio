@@ -679,11 +679,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f528c9c33958e5498ce8f17a72ece59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _acceleration: 7.95
   _deceleration: 2
   _inputMaxSpeed: 10
-  _recoilMaxSpeed: 10
+  _recoilMaxSpeed: 18.96
   _velocity: {x: 0, y: 0}
+  _recoilVelocity: {x: 0, y: 0}
+  _inputVelocity: {x: 0, y: 0}
   _text: {fileID: 2004412196}
   _playerFire: {fileID: 1206159200}
 --- !u!212 &1206159194

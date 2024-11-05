@@ -1,8 +1,13 @@
+using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
+using System.Threading;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+
+public class PlayerMove : SerializedMonoBehaviour
 {
 
     [Header("加速度")]
@@ -15,25 +20,34 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _recoilMaxSpeed = 10f;
 
 
-    [HideInInspector]
     public Vector2 _velocity;
+    public Vector2 _recoilVelocity;
+    public Vector2 _inputVelocity;
     public TextMeshProUGUI _text;
     public PlayerFire _playerFire;
     private Vector2 _inputDirection;
 
+    private void Awake()
+    {
+        var cts = new CancellationToken();
+    }
     void FixedUpdate()
     {
-        _velocity += _inputDirection * _acceleration * Time.fixedDeltaTime;
+        // キャンセルトークン作るぞ！！！
+
+        // 加速度
+        _inputVelocity += _inputDirection * _acceleration * Time.fixedDeltaTime;
+
+
+        // 入力速度の制限
+        _inputVelocity = Vector2.ClampMagnitude(_velocity, _recoilMaxSpeed);
 
         // 操作をしていない場合
         // 慣性を持たせるために減速を追加
         if (_inputDirection == Vector2.zero)
         {
-            _velocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
+            _inputVelocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
         }
-
-        // 速度の制限
-        _velocity = Vector2.ClampMagnitude(_velocity, _inputMaxSpeed);
 
         // UI debug用
         _text.text = $"velocity : {_velocity.sqrMagnitude}";
@@ -43,13 +57,24 @@ public class PlayerMove : MonoBehaviour
     }
     public void AddForce(Vector2 force)
     {
-        _velocity += force;
-
+        _recoilVelocity += force;
+        // 反動をあわせた速度の制限
+        _recoilVelocity = Vector2.ClampMagnitude(_recoilVelocity, _recoilMaxSpeed);
+        
     }
 
-    public void Onmove(InputAction.CallbackContext context)
+    async UniTask hoge(CancellationToken token)
     {
 
+        await UniTask.Delay(1);
+    }
+
+    /// <summary>
+    /// 入力イベント用
+    /// </summary>
+    /// <param name="context"></param>
+    public void Onmove(InputAction.CallbackContext context)
+    {
         // Input
         _inputDirection = context.ReadValue<Vector2>();
 
@@ -61,15 +86,16 @@ public class PlayerMove : MonoBehaviour
         // x y それぞれの長さ
         Vector3 xLength = new Vector3(_velocity.x, 0, 0);
         Vector3 yLength = new Vector3(0, _velocity.y, 0);
+
         // 全体の長さ
         Vector3 Length = new Vector3(_velocity.x, _velocity.y, 0);
 
         // x y のDrawGizmo
         Gizmos.color = Color.green;
         Gizmos.DrawLine(this.transform.position, transform.position + xLength);
-
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(this.transform.position, transform.position + yLength);
+
 
         // 全体のDrawGizmo
         Gizmos.color = Color.red;
