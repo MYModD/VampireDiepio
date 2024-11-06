@@ -1,105 +1,125 @@
-using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
-using System.Threading;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class PlayerMove : SerializedMonoBehaviour
 {
+    [Header("入力の加速度")]
+    [SerializeField] private float _inputAcceleration = 5f;
 
-    [Header("加速度")]
-    [SerializeField] private float _acceleration = 5f;
-    [Header("減速度")]
-    [SerializeField] private float _deceleration = 2f;
+    [Header("入力の減速度")]
+    [SerializeField] private float _inputDeceleration = 2f;
+
     [Header("入力の最高速度")]
     [SerializeField] private float _inputMaxSpeed = 10f;
-    [Header("反動を入れた最高速度")]
+
+    [Header("反動の強さ")]
+    [SerializeField] private float _recoilForceMultiplier = 5f;
+
+    [Header("反動の減衰率")]
+    [SerializeField] private float _recoilDeceleration = 2f;
+
+    [Header("反動の最高速度")]
     [SerializeField] private float _recoilMaxSpeed = 10f;
 
+    [Header("全体の最高速度")]
+    [SerializeField] private float _velocityMaxSpeed = 10f;
 
-    public Vector2 _velocity;
-    public Vector2 _recoilVelocity;
-    public Vector2 _inputVelocity;
-    public TextMeshProUGUI _text;
-    public PlayerFire _playerFire;
+
+
+    [SerializeField] private TextMeshProUGUI _debugText; // デバッグ用テキスト
+    [SerializeField] private PlayerFire _playerFire;
+
+
+    // 全体の速度ベクトル
+    public Vector2 _currentVelocity { private set; get; }
+    // 入力の速度ベクトル
+    private Vector2 _currentInputVelocity;
+    // 反動の速度ベクトル
+    private Vector2 _currentRecoilVelocity;
+  
+
+    // 入力方向に使用
     private Vector2 _inputDirection;
+
+    
 
     private void Awake()
     {
-        var cts = new CancellationToken();
+        // 初期設定 必要に応じて追加
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
-        // キャンセルトークン作るぞ！！！
+        // 入力ベクトルに加速度を加える
+        _currentInputVelocity += _inputDirection * _inputAcceleration * Time.fixedDeltaTime;
 
-        // 加速度
-        _inputVelocity += _inputDirection * _acceleration * Time.fixedDeltaTime;
+        // 入力ベクトルの制限
+        _currentInputVelocity = Vector2.ClampMagnitude(_currentInputVelocity, _inputMaxSpeed);
 
-
-        // 入力速度の制限
-        _inputVelocity = Vector2.ClampMagnitude(_velocity, _recoilMaxSpeed);
-
-        // 操作をしていない場合
-        // 慣性を持たせるために減速を追加
+        // 入力がない場合は減速
         if (_inputDirection == Vector2.zero)
         {
-            _inputVelocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
+            _currentInputVelocity = Vector2.Lerp(_currentInputVelocity, Vector2.zero, _inputDeceleration * Time.fixedDeltaTime);
         }
 
-        // UI debug用
-        _text.text = $"velocity : {_velocity.sqrMagnitude}";
+        // 反動ベクトルの制限
+        _currentRecoilVelocity = Vector2.ClampMagnitude(_currentRecoilVelocity, _recoilMaxSpeed);
 
-        // vector2を3になおして、かける
-        transform.position += (Vector3)_velocity * Time.fixedDeltaTime;
+        // 反動ベクトルの減速
+        _currentRecoilVelocity = Vector2.Lerp(_currentRecoilVelocity, Vector2.zero, _recoilDeceleration * Time.fixedDeltaTime);
+
+        // 全体の速度ベクトルを合成
+        _currentVelocity = _currentInputVelocity + _currentRecoilVelocity;
+        _currentVelocity = Vector2.ClampMagnitude(_currentVelocity, _velocityMaxSpeed);
+
+        // デバッグ用テキスト更新
+        _debugText.text = $"Velocity: {_currentVelocity.sqrMagnitude}";
+
+        // 位置を更新
+        transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
     }
-    public void AddForce(Vector2 force)
+
+    public void AddRecoilForce(Vector2 force)
     {
-        _recoilVelocity += force;
-        // 反動をあわせた速度の制限
-        _recoilVelocity = Vector2.ClampMagnitude(_recoilVelocity, _recoilMaxSpeed);
-        
+        // 正規化 反動をつけるため逆にする
+        force = force.normalized * -1;
+
+        // 向き＊長さ(力)
+        _currentRecoilVelocity += force * _recoilForceMultiplier;
     }
 
-    async UniTask hoge(CancellationToken token)
-    {
-
-        await UniTask.Delay(1);
-    }
 
     /// <summary>
-    /// 入力イベント用
+    /// 入力イベント用メソッド
     /// </summary>
-    /// <param name="context"></param>
-    public void Onmove(InputAction.CallbackContext context)
+    /// <param name="context">入力コンテキスト</param>
+    public void OnMove(InputAction.CallbackContext context)
     {
-        // Input
+        // 入力の方向を更新
         _inputDirection = context.ReadValue<Vector2>();
-
     }
 
     private void OnDrawGizmos()
     {
+        // Gizmosを使用してベクトルを可視化
 
-        // x y それぞれの長さ
-        Vector3 xLength = new Vector3(_velocity.x, 0, 0);
-        Vector3 yLength = new Vector3(0, _velocity.y, 0);
+        // x, y のそれぞれの長さを計算
+        Vector3 xLength = new Vector3(_currentVelocity.x, 0, 0);
+        Vector3 yLength = new Vector3(0, _currentVelocity.y, 0);
 
-        // 全体の長さ
-        Vector3 Length = new Vector3(_velocity.x, _velocity.y, 0);
+        // 全体の長さを計算
+        Vector3 totalLength = new Vector3(_currentVelocity.x, _currentVelocity.y, 0);
 
-        // x y のDrawGizmo
+        // x, y の Gizmos を描画
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(this.transform.position, transform.position + xLength);
+        Gizmos.DrawLine(transform.position, transform.position + xLength);
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(this.transform.position, transform.position + yLength);
+        Gizmos.DrawLine(transform.position, transform.position + yLength);
 
-
-        // 全体のDrawGizmo
+        // 全体のベクトルを描画
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(this.transform.position, transform.position + Length);
+        Gizmos.DrawLine(transform.position, transform.position + totalLength);
     }
-
 }
