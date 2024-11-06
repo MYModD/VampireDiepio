@@ -40,7 +40,7 @@ public class PlayerMove : SerializedMonoBehaviour
     private Vector2 _currentRecoilVelocity;
   
 
-    // 入力方向に使用
+    // 入力ベクトル
     private Vector2 _inputDirection;
 
     

@@ -7,28 +7,51 @@ public class PlayerFire : MonoBehaviour
     public BulletMove _bulletMoveObject;
     public Transform _bulletParent;
 
-    public float _coolTime;
-    public float _multiplyForce = 1;
+    public float _coolTime = 0.5f; // 弾発射のクールダウンタイム
+    public float _multiplyForce = 1f;
 
     public PlayerMove _playerMove;
     private float _coolTimeValue;
-   
+    private bool _isFiring = false; // 長押しを判定するフラグ
 
-    // Update is called once per frame
+    void Update()
+    {
+        // 長押し中に発射処理を行う
+        if (_isFiring)
+        {
+            _coolTimeValue -= Time.deltaTime;
+            if (_coolTimeValue <= 0f)
+            {
+                FireBullet();
+                _coolTimeValue = _coolTime; // クールダウンをリセット
+            }
+        }
+    }
+
     public void Onfire(InputAction.CallbackContext context)
     {
-        // ここ要変更
-
-        Debug.Log(context.phase);
+        // 発射のトリガーを制御
         if (context.started)
         {
-            var bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
-            Vector2 force = new Vector2(_firePostion.position.x - this.transform.position.x, (_firePostion.position.y - this.transform.position.y)) ;
-            // 速度与える + プレイヤーのベクトルも+
-            bulletObject.GetComponent<BulletMove>().AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
-            // プレイヤーの反動
-            _playerMove.AddRecoilForce(force);
-
+            _isFiring = true;
+            _coolTimeValue = 0f; // 最初の弾はすぐに発射する
         }
+        else if (context.canceled)
+        {
+            _isFiring = false; // 長押し解除時に発射を停止する
+        }
+    }
+
+    private void FireBullet()
+    {
+        // 弾を生成して発射
+        var bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
+        Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
+
+        // 速度を与える + プレイヤーのベクトルも加算
+        bulletObject.GetComponent<BulletMove>().AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
+
+        // プレイヤーに反動を与える
+        _playerMove.AddRecoilForce(force);
     }
 }

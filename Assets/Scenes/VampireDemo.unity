@@ -688,14 +688,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _acceleration: 7.95
-  _deceleration: 2
+  _inputAcceleration: 5
+  _inputDeceleration: 2
   _inputMaxSpeed: 10
+  _recoilForceMultiplier: 5
+  _recoilDeceleration: 2
   _recoilMaxSpeed: 18.96
-  _velocity: {x: 0, y: 0}
-  _recoilVelocity: {x: 0, y: 0}
-  _inputVelocity: {x: 0, y: 0}
-  _text: {fileID: 2004412196}
+  _velocityMaxSpeed: 16.18
+  _debugText: {fileID: 2004412196}
   _playerFire: {fileID: 1206159200}
 --- !u!212 &1206159194
 SpriteRenderer:
@@ -830,7 +830,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1206159193}
         m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-        m_MethodName: Onmove
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
