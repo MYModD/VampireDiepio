@@ -896,7 +896,7 @@ MonoBehaviour:
   _firePostion: {fileID: 262889598}
   _bulletMoveObject: {fileID: 5651148700190582060, guid: d11d0fefc888b2d4b94e170903801731, type: 3}
   _bulletParent: {fileID: 204910490}
-  _coolTime: 0
+  _coolTime: 0.27
   _multiplyForce: 10
   _playerMove: {fileID: 1206159193}
 --- !u!1 &1214415826
@@ -1354,8 +1354,8 @@ SceneRoots:
   - {fileID: 1206159197}
   - {fileID: 27116048}
   - {fileID: 3142544442212561009}
-  - {fileID: 455750049}
   - {fileID: 204910490}
   - {fileID: 1134340990}
   - {fileID: 381594407}
   - {fileID: 2145689474}
+  - {fileID: 455750049}
