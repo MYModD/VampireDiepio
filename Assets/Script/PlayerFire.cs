@@ -44,6 +44,8 @@ public class PlayerFire : MonoBehaviour
 
     private void FireBullet()
     {
+
+        // 生成しているので後でオブジェクトプールに変更
         // 弾を生成して発射
         var bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
         Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
