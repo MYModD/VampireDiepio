@@ -32,26 +32,35 @@ public class PlayerMove : SerializedMonoBehaviour
     [SerializeField] private PlayerFire _playerFire;
 
 
+
     // 全体の速度ベクトル
     public Vector2 _currentVelocity { private set; get; }
     // 入力の速度ベクトル
     private Vector2 _currentInputVelocity;
     // 反動の速度ベクトル
     private Vector2 _currentRecoilVelocity;
-  
+
 
     // 入力ベクトル
     private Vector2 _inputDirection;
 
-    
+
 
     private void Awake()
     {
-        // 初期設定 必要に応じて追加
+
     }
+
 
     private void FixedUpdate()
     {
+        UpdateVelocityAndPosition();
+    }
+
+
+    private void UpdateVelocityAndPosition()
+    {
+
         // 入力ベクトルに加速度を加える
         _currentInputVelocity += _inputDirection * _inputAcceleration * Time.fixedDeltaTime;
 
@@ -80,6 +89,7 @@ public class PlayerMove : SerializedMonoBehaviour
         // 位置を更新
         transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
     }
+
 
     public void AddRecoilForce(Vector2 force)
     {
@@ -121,5 +131,6 @@ public class PlayerMove : SerializedMonoBehaviour
         // 全体のベクトルを描画
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + totalLength);
+
     }
 }

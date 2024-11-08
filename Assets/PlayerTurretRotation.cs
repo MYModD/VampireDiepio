@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,14 +10,11 @@ public class PlayerTurretRotation : MonoBehaviour
     void Start()
     {
 
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
 
         Vector3 screenPositon = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0);
         Vector3 worldPostion = Camera.main.ScreenToWorldPoint(screenPositon);
@@ -31,12 +26,4 @@ public class PlayerTurretRotation : MonoBehaviour
     }
 
 
-    public void UpdateMousePostion(InputAction.CallbackContext context)
-    {
-        /*
-        hoge = context.ReadValue<Vector2>();
-        Vector3 postion = Camera.main.WorldToScreenPoint(hoge);
-        _debugSquare.position = postion;
-        */
-    }
 }

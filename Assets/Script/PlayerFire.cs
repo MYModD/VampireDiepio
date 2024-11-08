@@ -50,10 +50,11 @@ public class PlayerFire : MonoBehaviour
         var bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
         Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
 
-        // 速度を与える + プレイヤーのベクトルも加算
+        // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
         bulletObject.GetComponent<BulletMove>().AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
 
         // プレイヤーに反動を与える
         _playerMove.AddRecoilForce(force);
+
     }
 }
