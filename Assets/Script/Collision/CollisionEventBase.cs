@@ -51,19 +51,3 @@ public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
 }
 
 // 使用例：プレイヤーの衝突処理
-public class PlayerCollisionHandler : CollisionEventBase
-{
-    protected override void OnCollisionEnter(SimpleShapeCollider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("敵と衝突！");
-            Destroy(collision.gameObject);
-        }
-        else if (collision.gameObject.CompareTag("Item"))
-        {
-            Debug.Log("アイテムを取得！");
-            Destroy(collision.gameObject);
-        }
-    }
-}

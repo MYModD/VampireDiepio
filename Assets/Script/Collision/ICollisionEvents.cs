@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ICollisionEvents : MonoBehaviour
+public interface ICollisionEvents
 {
-    
-    void Awake()
-    {
-        
-    }
-
-    
-    void Update()
-    {
-        
-    }
+    void OnCollisionEnter(SimpleShapeCollider2D collision);
+    void OnCollisionStay(SimpleShapeCollider2D collision);
+    void OnCollisionExit(SimpleShapeCollider2D collision);
 }
