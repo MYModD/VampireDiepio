@@ -28,8 +28,6 @@ public class BulletMove : MonoBehaviour
             Debug.Log("BulletMove‚ğOFF‚É‚µ‚Ü‚µ‚½");
         }
 
-
-        // ‘€ì‚ğ‚µ‚Ä‚¢‚È‚¢ê‡
         // Šµ«‚ğ‚½‚¹‚é‚½‚ß‚ÉŒ¸‘¬‚ğ’Ç‰Á
         _velocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
 

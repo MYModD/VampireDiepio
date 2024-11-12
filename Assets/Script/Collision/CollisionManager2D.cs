@@ -6,15 +6,21 @@ using UnityEngine;
 public class CollisionManager2D : Singleton<CollisionManager2D>
 {
 
+    private List<SimpleShapeCollider2D> _colliders = new List<SimpleShapeCollider2D>();
+    private HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)> _currentCollisions = new HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)>();
+
+    /// <summary>
+    /// シングルトンの継承
+    /// </summary>
     public override void Awake()
     {
         base.Awake();
 
     }
 
-    private List<SimpleShapeCollider2D> _colliders = new List<SimpleShapeCollider2D>();
-    private HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)> _currentCollisions = new HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)>();
-
+    /// <summary>
+    /// 毎フレームごとに検査
+    /// </summary>
     private void Update()
     {
         CheckCollisions();
@@ -31,6 +37,8 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
     public void UnregisterCollider(SimpleShapeCollider2D collider)
     {
         _colliders.Remove(collider);
+
+        // item1,2はそれぞれ第一,二引数
         _currentCollisions.RemoveWhere(pair => pair.Item1 == collider || pair.Item2 == collider);
     }
 
@@ -42,8 +50,8 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         {
             for (int j = i + 1; j < _colliders.Count; j++)
             {
-                var a = _colliders[i];
-                var b = _colliders[j];
+                SimpleShapeCollider2D a = _colliders[i];
+                SimpleShapeCollider2D b = _colliders[j];
 
                 bool isColliding = IsColliding(a, b);
                 if (isColliding)
@@ -131,7 +139,12 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         return false;
     }
 
-    // 多角形同士の衝突判定（分離軸判定法）
+    /// <summary>
+    /// 多角形同士の衝突判定（分離軸判定法）
+    /// </summary>
+    /// <param name="vertsA"></param>
+    /// <param name="vertsB"></param>
+    /// <returns></returns>
     private bool CheckPolygonCollision(Vector2[] vertsA, Vector2[] vertsB)
     {
         // 両方の多角形の辺の法線ベクトルをチェック
@@ -177,6 +190,15 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         return IsPointInPolygon(circlePos, polygonVerts);
     }
 
+
+
+    /// <summary>
+    /// 分離軸定理
+    /// </summary>
+    /// <param name="normal"></param>
+    /// <param name="vertsA"></param>
+    /// <param name="vertsB"></param>
+    /// <returns></returns>
     private bool HasSeparatingAxis(Vector2 normal, Vector2[] vertsA, Vector2[] vertsB)
     {
         float minA = float.MaxValue, maxA = float.MinValue;

@@ -10,7 +10,6 @@ public class CollisionEvent : MonoBehaviour
     {
         _customCollider2D = GetComponent<SimpleShapeCollider2D>();
         _customCollider2D.OnCollisionEnter2D += Enter;
-        _customCollider2D.OnCollisionEnter2D += Enter;
         _customCollider2D.OnCollisionStay2D += Stay;
         _customCollider2D.OnCollisionExit2D += Exit;
     }
