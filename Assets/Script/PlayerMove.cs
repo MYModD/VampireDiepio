@@ -1,9 +1,8 @@
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-public class PlayerMove : SerializedMonoBehaviour
+using NaughtyAttributes;
+public class PlayerMove : MonoBehaviour
 {
     [Header("“ü—Í‚Ì‰Á‘¬“x")]
     [SerializeField] private float _inputAcceleration = 5f;
