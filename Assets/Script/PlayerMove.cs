@@ -78,7 +78,7 @@ public class PlayerMove : MonoBehaviour
         // 反動ベクトルの減速
         _currentRecoilVelocity = Vector2.Lerp(_currentRecoilVelocity, Vector2.zero, _recoilDeceleration * Time.fixedDeltaTime);
 
-        // 全体の速度ベクトルを合成
+        // 全体の速度ベクトルを合成、速度制限
         _currentVelocity = _currentInputVelocity + _currentRecoilVelocity;
         _currentVelocity = Vector2.ClampMagnitude(_currentVelocity, _velocityMaxSpeed);
 

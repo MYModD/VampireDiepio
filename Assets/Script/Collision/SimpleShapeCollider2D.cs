@@ -1,6 +1,5 @@
-using UnityEngine;
 using System;
-using System.Collections.Generic;
+using UnityEngine;
 
 // 衝突判定の種類を定義
 public enum CollisionType2D
@@ -11,15 +10,15 @@ public enum CollisionType2D
 }
 
 // カスタムコライダーコンポーネント
-public class CustomCollider2D : MonoBehaviour
+public class SimpleShapeCollider2D : MonoBehaviour
 {
     public CollisionType2D _collisionType;
     public float _size = 1f;
 
     // コライダーのイベントを定義
-    public event Action<CustomCollider2D> OnCollisionEnter2D;
-    public event Action<CustomCollider2D> OnCollisionStay2D;
-    public event Action<CustomCollider2D> OnCollisionExit2D;
+    public event Action<SimpleShapeCollider2D> OnCollisionEnter2D;
+    public event Action<SimpleShapeCollider2D> OnCollisionStay2D;
+    public event Action<SimpleShapeCollider2D> OnCollisionExit2D;
 
     private void OnEnable()
     {
@@ -32,17 +31,17 @@ public class CustomCollider2D : MonoBehaviour
     }
 
     // 他のコライダーと衝突した時の内部処理
-    internal void OnCollisionEnter2DInternal(CustomCollider2D other)
+    public void OnCollisionEnter2DInternal(SimpleShapeCollider2D other)
     {
         OnCollisionEnter2D?.Invoke(other);
     }
 
-    internal void OnCollisionStay2DInternal(CustomCollider2D other)
+    public void OnCollisionStay2DInternal(SimpleShapeCollider2D other)
     {
         OnCollisionStay2D?.Invoke(other);
     }
 
-    internal void OnCollisionExit2DInternal(CustomCollider2D other)
+    public void OnCollisionExit2DInternal(SimpleShapeCollider2D other)
     {
         OnCollisionExit2D?.Invoke(other);
     }

@@ -12,15 +12,15 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
 
     }
 
-    private List<CustomCollider2D> _colliders = new List<CustomCollider2D>();
-    private HashSet<(CustomCollider2D, CustomCollider2D)> _currentCollisions = new HashSet<(CustomCollider2D, CustomCollider2D)>();
+    private List<SimpleShapeCollider2D> _colliders = new List<SimpleShapeCollider2D>();
+    private HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)> _currentCollisions = new HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)>();
 
     private void Update()
     {
         CheckCollisions();
     }
 
-    public void RegisterCollider(CustomCollider2D collider)
+    public void RegisterCollider(SimpleShapeCollider2D collider)
     {
         if (!_colliders.Contains(collider))
         {
@@ -28,7 +28,7 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         }
     }
 
-    public void UnregisterCollider(CustomCollider2D collider)
+    public void UnregisterCollider(SimpleShapeCollider2D collider)
     {
         _colliders.Remove(collider);
         _currentCollisions.RemoveWhere(pair => pair.Item1 == collider || pair.Item2 == collider);
@@ -36,7 +36,7 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
 
     private void CheckCollisions()
     {
-        HashSet<(CustomCollider2D, CustomCollider2D)> newCollisions = new HashSet<(CustomCollider2D, CustomCollider2D)>();
+        HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)> newCollisions = new HashSet<(SimpleShapeCollider2D, SimpleShapeCollider2D)>();
 
         for (int i = 0; i < _colliders.Count; i++)
         {
@@ -80,7 +80,7 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         _currentCollisions = newCollisions;
     }
 
-    private bool IsColliding(CustomCollider2D a, CustomCollider2D b)
+    private bool IsColliding(SimpleShapeCollider2D a, SimpleShapeCollider2D b)
     {
         // â~Ç∆â~
         if (a._collisionType == CollisionType2D.Circle && b._collisionType == CollisionType2D.Circle)
@@ -157,7 +157,7 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
     }
 
     // â~Ç∆ëΩäpå`ÇÃè’ìÀîªíË
-    private bool CheckCirclePolygonCollision(CustomCollider2D circle, Vector2[] polygonVerts)
+    private bool CheckCirclePolygonCollision(SimpleShapeCollider2D circle, Vector2[] polygonVerts)
     {
         Vector2 circlePos = circle.transform.position;
         float radiusSq = circle._size * circle._size;
@@ -229,6 +229,8 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         }
         return inside;
     }
+
+
 }
 
 

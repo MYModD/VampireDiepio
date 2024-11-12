@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class CollisionEvent : MonoBehaviour
 {
-    private CustomCollider2D _customCollider2D;
+    private SimpleShapeCollider2D _simpleCollider;
     void Awake()
     {
-        _customCollider2D = GetComponent<CustomCollider2D>();
-        _customCollider2D.OnCollisionEnter2D += Enter;
-        _customCollider2D.OnCollisionStay2D += Stay;
-        _customCollider2D.OnCollisionExit2D += Exit;
+        _simpleCollider = GetComponent<CustomCollider2D>();
+        _simpleCollider.OnCollisionEnter2D += OnCollisionEnter2DCustom;
+        _simpleCollider.OnCollisionStay2D += OnCollisionStay2DCustom;
+        _simpleCollider.OnCollisionExit2D += OnCollisionExit2DCustom;
     }
 
     
@@ -20,20 +20,17 @@ public class CollisionEvent : MonoBehaviour
         
     }
 
-    private void Enter(CustomCollider2D collision)
+    private void OnCollisionEnter2DCustom(CustomCollider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && this.gameObject.CompareTag("Player"))
-        {
-            Destroy(collision.gameObject);
-        }
+        
         //Debug.Log($"{collision.gameObject.name}Ç™ì¸Ç¡ÇΩÇÊ");
     }
-    private void Stay(CustomCollider2D collision)
+    private void OnCollisionStay2DCustom(CustomCollider2D collision)
     {
         //Debug.Log($"{collision.gameObject.name}Ç™ë}ì¸íÜ");
 
     }
-    private void Exit(CustomCollider2D collision)
+    private void OnCollisionExit2DCustom(CustomCollider2D collision)
     {
         //Debug.Log($"{collision.gameObject.name}Ç™èoÇΩÇÊ");
 
