@@ -88,6 +88,7 @@ public class PlayerMove : SerializedMonoBehaviour
 
         // ˆÊ’u‚ğXV
         transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
+       
     }
 
 

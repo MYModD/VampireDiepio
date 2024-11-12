@@ -16,6 +16,8 @@ public class PlayerFire : MonoBehaviour
 
     void Update()
     {
+
+        
         // ’·‰Ÿ‚µ’†‚É”­Ëˆ—‚ğs‚¤
         if (_isFiring)
         {
@@ -57,4 +59,6 @@ public class PlayerFire : MonoBehaviour
         _playerMove.AddRecoilForce(force);
 
     }
+
+    
 }
