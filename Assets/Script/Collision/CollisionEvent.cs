@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class CollisionEvent : MonoBehaviour
 {
-    private CustomCollider2D _customCollider2D;
+    private SimpleShapeCollider2D _customCollider2D;
     void Awake()
     {
-        _customCollider2D = GetComponent<CustomCollider2D>();
+        _customCollider2D = GetComponent<SimpleShapeCollider2D>();
+        _customCollider2D.OnCollisionEnter2D += Enter;
         _customCollider2D.OnCollisionEnter2D += Enter;
         _customCollider2D.OnCollisionStay2D += Stay;
         _customCollider2D.OnCollisionExit2D += Exit;
@@ -20,7 +21,7 @@ public class CollisionEvent : MonoBehaviour
         
     }
 
-    private void Enter(CustomCollider2D collision)
+    private void Enter(SimpleShapeCollider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && this.gameObject.CompareTag("Player"))
         {
@@ -28,12 +29,12 @@ public class CollisionEvent : MonoBehaviour
         }
         //Debug.Log($"{collision.gameObject.name}Ç™ì¸Ç¡ÇΩÇÊ");
     }
-    private void Stay(CustomCollider2D collision)
+    private void Stay(SimpleShapeCollider2D collision)
     {
         //Debug.Log($"{collision.gameObject.name}Ç™ë}ì¸íÜ");
 
     }
-    private void Exit(CustomCollider2D collision)
+    private void Exit(SimpleShapeCollider2D collision)
     {
         //Debug.Log($"{collision.gameObject.name}Ç™èoÇΩÇÊ");
 
