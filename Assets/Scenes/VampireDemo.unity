@@ -1439,7 +1439,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4847, y: 3.8204, z: 0}
-  m_LocalScale: {x: 662.59314, y: 657.7066, z: 70.85}
+  m_LocalScale: {x: 655.95, y: 651.1124, z: 70.139656}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1620,6 +1620,58 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 692065653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1580641292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1580641294}
+  - component: {fileID: 1580641293}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1580641293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580641292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293156699f9d7a943b4b310ec2e526d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseMaterial: {fileID: 2100000, guid: b03219fc6fc7e6e409c948d298b2a624, type: 2}
+  textureSize: 256
+  prefab: {fileID: 6868915174853936545, guid: d11d0fefc888b2d4b94e170903801731, type: 3}
+  mapSize: 500
+  threshold: 0.5
+  minDistance: 300
+  samplingStep: 4
+  maxObjects: 1000
+--- !u!4 &1580641294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580641292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.1180406, y: -180.77646, z: -2.8654687}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688034211
 GameObject:
@@ -2230,3 +2282,4 @@ SceneRoots:
   - {fileID: 455750049}
   - {fileID: 692065653}
   - {fileID: 1268918818}
+  - {fileID: 1580641294}
