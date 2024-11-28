@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-
+    
     [Header("減速度")]
     [SerializeField] private float _deceleration = 2f;
 
@@ -16,8 +16,8 @@ public class BulletMove : MonoBehaviour
     public Vector2 _velocity = default;
 
     private float _timerValue = default; // 時間計算用
-
-
+    
+    
     private void FixedUpdate()
     {
         // タイマーが0になったらオブジェクトOFF

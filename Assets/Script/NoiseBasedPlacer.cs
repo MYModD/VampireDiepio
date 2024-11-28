@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class NoiseBasedPlacer : MonoBehaviour
 {
     [Header("Material Settings")]
     [SerializeField] private Material noiseMaterial;
-    [SerializeField] private int textureSize = 256; // 解像度を下げる
+    [SerializeField] private int textureSize = 256;
 
     [Header("Placement Settings")]
     [SerializeField] private GameObject prefab;
@@ -13,34 +14,45 @@ public class NoiseBasedPlacer : MonoBehaviour
     [SerializeField] private float minDistance = 2f;
 
     [Header("Optimization")]
-    [SerializeField] private int samplingStep = 4; // サンプリング間隔
-    [SerializeField] private int maxObjects = 1000; // 最大オブジェクト数
+    [SerializeField] private int samplingStep = 4;
+    [SerializeField] private int maxObjects = 1000;
 
-    private RenderTexture noiseTexture; 
+    private RenderTexture noiseTexture;
     private Texture2D noiseResult;
 
     void Start()
     {
-        GeneratePlacement();
+        StartCoroutine(GeneratePlacement());
     }
 
-    void GeneratePlacement()
+    IEnumerator GeneratePlacement()
     {
-        // 既存のオブジェクトをクリア
+        // Clear existing objects
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
+        // Setup noise texture
+        if (noiseTexture != null)
+        {
+            noiseTexture.Release();
+            Destroy(noiseTexture);
+        }
+
+        noiseTexture = new RenderTexture(textureSize, textureSize, 0);
+        noiseTexture.enableRandomWrite = true;
+        noiseTexture.Create();
+
+        // Render noise
+        Graphics.Blit(null, noiseTexture, noiseMaterial);
+
+        // Wait for end of frame to ensure rendering is complete
+        yield return new WaitForEndOfFrame();
+
         try
         {
-            // テクスチャの設定
-            noiseTexture = new RenderTexture(textureSize, textureSize, 0);
-            noiseTexture.enableRandomWrite = true;
-            noiseTexture.Create();
-
-            Graphics.Blit(null, noiseTexture, noiseMaterial);
-
+            // Read pixels
             noiseResult = new Texture2D(textureSize, textureSize, TextureFormat.RGB24, false);
             RenderTexture.active = noiseTexture;
             noiseResult.ReadPixels(new Rect(0, 0, textureSize, textureSize), 0, 0);
@@ -54,7 +66,7 @@ public class NoiseBasedPlacer : MonoBehaviour
         }
         finally
         {
-            // リソースの解放
+            // Cleanup
             RenderTexture.active = null;
             if (noiseTexture != null)
             {
@@ -70,10 +82,9 @@ public class NoiseBasedPlacer : MonoBehaviour
 
     void PlaceObjects()
     {
-        float stepSize = mapSize / textureSize;
+        float cellSize = mapSize / textureSize;
         int objectsPlaced = 0;
 
-        // サンプリング間隔でループ
         for (int x = 0; x < textureSize && objectsPlaced < maxObjects; x += samplingStep)
         {
             for (int y = 0; y < textureSize && objectsPlaced < maxObjects; y += samplingStep)
@@ -81,13 +92,12 @@ public class NoiseBasedPlacer : MonoBehaviour
                 Color pixel = noiseResult.GetPixel(x, y);
                 if (pixel.r > threshold)
                 {
-                    Vector3 position = new Vector3(
-                        x * stepSize - mapSize / 2,
-                        0,
-                        y * stepSize - mapSize / 2
-                    );
+                    // Convert texture coordinates to world position
+                    float worldX = (x / (float)textureSize - 0.5f) * mapSize;
+                    float worldZ = (y / (float)textureSize - 0.5f) * mapSize;
+                    Vector3 position = new Vector3(worldX, 0, worldZ);
 
-                    // 簡略化された距離チェック
+                    // Check for nearby objects
                     bool canPlace = true;
                     Collider[] colliders = Physics.OverlapSphere(position, minDistance);
                     if (colliders.Length == 0)
@@ -95,11 +105,13 @@ public class NoiseBasedPlacer : MonoBehaviour
                         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
                         obj.transform.parent = transform;
                         objectsPlaced++;
+
+                        // Optional: Add random rotation
+                        obj.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
                     }
                 }
             }
         }
-
         Debug.Log($"Placed {objectsPlaced} objects");
     }
 
@@ -107,6 +119,7 @@ public class NoiseBasedPlacer : MonoBehaviour
     {
         samplingStep = Mathf.Max(1, samplingStep);
         maxObjects = Mathf.Max(1, maxObjects);
+        textureSize = Mathf.Max(1, textureSize);
     }
 
     private void OnDestroy()

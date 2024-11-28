@@ -30,7 +30,7 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
-    public void Onfire(InputAction.CallbackContext context)
+    public void OnFire(InputAction.CallbackContext context)
     {
         // ”­Ë‚ÌƒgƒŠƒK[‚ğ§Œä
         if (context.started)

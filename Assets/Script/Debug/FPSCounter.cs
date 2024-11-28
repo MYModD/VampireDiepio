@@ -7,9 +7,9 @@ public class FPSCounter : MonoBehaviour
 {
 
     public TextMeshProUGUI _text;
-    void Awake()
+    private void Awake()
     {
-        
+        Debug.Log("hoge");
     }
 
     

@@ -42,12 +42,12 @@ public class PlayerMove : MonoBehaviour
 
     // 入力ベクトル
     private Vector2 _inputDirection;
-
+    
 
 
     private void Awake()
     {
-
+        transform.position = _currentVelocity;
     }
 
 
@@ -59,7 +59,7 @@ public class PlayerMove : MonoBehaviour
 
     private void UpdateVelocityAndPosition()
     {
-
+        
         // 入力ベクトルに加速度を加える
         _currentInputVelocity += _inputDirection * _inputAcceleration * Time.fixedDeltaTime;
 

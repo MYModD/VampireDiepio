@@ -1194,7 +1194,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1206159200}
         m_TargetAssemblyTypeName: PlayerFire, Assembly-CSharp
-        m_MethodName: Onfire
+        m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
