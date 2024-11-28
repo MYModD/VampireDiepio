@@ -16,8 +16,7 @@ public class BulletMove : MonoBehaviour
     public Vector2 _velocity = default;
 
     private float _timerValue = default; // 時間計算用
-    
-    
+
     private void FixedUpdate()
     {
         // タイマーが0になったらオブジェクトOFF
@@ -32,6 +31,8 @@ public class BulletMove : MonoBehaviour
         _velocity = Vector2.Lerp(_velocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
 
         transform.position += (Vector3)_velocity * Time.fixedDeltaTime;
+        
+       
 
     }
     public void AddForce(Vector2 force)

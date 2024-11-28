@@ -94,21 +94,14 @@ public class SimpleShapeCollider2D : MonoBehaviour
     public Vector2[] GetSquareCorners()
     {
         Vector2[] corners = new Vector2[4];
-        // オブジェクトのZ軸回転角度をラジアンに変換
-        float rotationRad = transform.eulerAngles.z * Mathf.Deg2Rad;
         Vector2 pos = transform.position;
+        float halfSize = _size;
 
-        for (int i = 0; i < 4; i++)
-        {
-            // 各頂点の角度を計算（オブジェクトの回転角度 + 90度ごとの角度）
-            float angle = rotationRad + (i * 90f * Mathf.Deg2Rad);
-
-            // 回転行列を使用して頂点の位置を計算
-            corners[i] = pos + new Vector2(
-                Mathf.Cos(angle) * _size,  // X座標
-                Mathf.Sin(angle) * _size   // Y座標
-            );
-        }
+        // 回転を考慮せず、垂直な四角形の頂点を計算
+        corners[0] = pos + new Vector2(-halfSize, halfSize);   // 左上
+        corners[1] = pos + new Vector2(halfSize, halfSize);    // 右上
+        corners[2] = pos + new Vector2(halfSize, -halfSize);   // 右下
+        corners[3] = pos + new Vector2(-halfSize, -halfSize);  // 左下
 
         return corners;
     }

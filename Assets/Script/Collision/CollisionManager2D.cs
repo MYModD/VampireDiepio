@@ -18,16 +18,23 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         base.Awake();
     }
 
-    /// <summary>
-    /// アプリケーション終了時の後処理
-    /// DontDestroyOnLoad上で削除されないため
-    /// </summary>
-    private void OnApplicationQuit()
-    {
+   
 
-        Destroy(this.gameObject);
+    protected override void OnDestroy()
+    {
+        // シーン遷移時にリストをクリア
+        if (_colliders != null)
+        {
+            _colliders.Clear();
+        }
+        if (_currentCollisions != null)
+        {
+            _currentCollisions.Clear();
+        }
+        base.OnDestroy();
     }
-    
+
+   
     /// <summary>
     /// 毎フレーム実行される当たり判定チェック
     /// </summary>

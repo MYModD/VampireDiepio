@@ -49,7 +49,7 @@ public class PlayerFire : MonoBehaviour
         // 弾を生成して発射
         BulletMove bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
         Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
-
+        force.Normalize();
         // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
         bulletObject.GetComponent<BulletMove>().AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
 
