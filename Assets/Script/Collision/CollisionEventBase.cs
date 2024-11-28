@@ -3,7 +3,7 @@ using UnityEngine;
 // 基底となる抽象クラス
 public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
 {
-    protected SimpleShapeCollider2D _shapeCollider;
+    protected private SimpleShapeCollider2D _shapeCollider;
 
     protected virtual void Awake()
     {
@@ -17,37 +17,45 @@ public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
         RegisterEvents();
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void OnEnable()
+    {
+        if(_shapeCollider == null)
+        {
+            _shapeCollider = GetComponent<SimpleShapeCollider2D>();
+        }
+
+        RegisterEvents();
+       
+    }
+
+    protected virtual void OnDisable()
     {
         UnregisterEvents();
     }
 
+
     private void RegisterEvents()
     {
-        _shapeCollider.OnCollisionEnter2D += OnCollisionEnter;
-        _shapeCollider.OnCollisionStay2D += OnCollisionStay;
-        _shapeCollider.OnCollisionExit2D += OnCollisionExit;
+        _shapeCollider.OnCollisionEnter2D += OnCustomCollisionEnter;
+        _shapeCollider.OnCollisionStay2D += OnCustomCollisionStay;
+        _shapeCollider.OnCollisionExit2D += OnCustomCollisionExit;
     }
 
     private void UnregisterEvents()
     {
         if (_shapeCollider != null)
         {
-            _shapeCollider.OnCollisionEnter2D -= OnCollisionEnter;
-            _shapeCollider.OnCollisionStay2D -= OnCollisionStay;
-            _shapeCollider.OnCollisionExit2D -= OnCollisionExit;
+            _shapeCollider.OnCollisionEnter2D -= OnCustomCollisionEnter;
+            _shapeCollider.OnCollisionStay2D -= OnCustomCollisionStay;
+            _shapeCollider.OnCollisionExit2D -= OnCustomCollisionExit;
         }
     }
 
     // インターフェースで定義されたメソッドを abstract で宣言
-    public abstract void OnCollisionEnter(SimpleShapeCollider2D collision);
-    public abstract void OnCollisionStay(SimpleShapeCollider2D collision);
-    public abstract void OnCollisionExit(SimpleShapeCollider2D collision);
+    public abstract void OnCustomCollisionEnter(SimpleShapeCollider2D collision);
+    public abstract void OnCustomCollisionStay(SimpleShapeCollider2D collision);
+    public abstract void OnCustomCollisionExit(SimpleShapeCollider2D collision);
 
-    protected bool IsCollidingWithTag(SimpleShapeCollider2D collision, string tag)
-    {
-        return collision.gameObject.CompareTag(tag);
-    }
+   
 }
 
-// 使用例：プレイヤーの衝突処理

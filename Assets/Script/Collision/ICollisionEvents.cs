@@ -5,7 +5,7 @@ using UnityEngine;
 
 public interface ICollisionEvents
 {
-    void OnCollisionEnter(SimpleShapeCollider2D collision);
-    void OnCollisionStay(SimpleShapeCollider2D collision);
-    void OnCollisionExit(SimpleShapeCollider2D collision);
+    void OnCustomCollisionEnter(SimpleShapeCollider2D collision);
+    void OnCustomCollisionStay(SimpleShapeCollider2D collision);
+    void OnCustomCollisionExit(SimpleShapeCollider2D collision);
 }

@@ -1,137 +1,115 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NoiseBasedPlacer : MonoBehaviour
 {
-    [Header("Material Settings")]
-    [SerializeField] private Material noiseMaterial;
-    [SerializeField] private int textureSize = 256;
+    [Header("Texture Settings")]
+    public Texture2D noiseTexture;
+    public float whiteThreshold = 0.5f;
 
     [Header("Placement Settings")]
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private float mapSize = 100f;
-    [SerializeField, Range(0f, 1f)] private float threshold = 0.5f;
-    [SerializeField] private float minDistance = 2f;
+    public GameObject prefabToPlace;
+    public int maxAttempts = 1000;
+    public float minDistance = 1f;
+    public Vector2 placementArea = new Vector2(10f, 10f);
+    public float yPosition = 0f;
 
-    [Header("Optimization")]
-    [SerializeField] private int samplingStep = 4;
-    [SerializeField] private int maxObjects = 1000;
+    [Header("Object Settings")]
+    public Vector2 scaleRange = new Vector2(0.8f, 1.2f);
+    public Vector2 rotationRange = new Vector2(0f, 360f);
+    public int maxObjects = 100;
 
-    private RenderTexture noiseTexture;
-    private Texture2D noiseResult;
+    private List<Vector3> placedPositions = new List<Vector3>();
 
-    void Start()
+    public void PlaceObjects()
     {
-        StartCoroutine(GeneratePlacement());
+        ClearExistingObjects();
+        placedPositions.Clear();
+
+        for (int i = 0; i < maxAttempts && placedPositions.Count < maxObjects; i++)
+        {
+            Vector3 randomPosition = GetRandomPosition();
+
+            // テクスチャ上の位置を計算
+            Vector2 texturePosition = new Vector2(
+                (randomPosition.x / placementArea.x + 0.5f),
+                (randomPosition.z / placementArea.y + 0.5f)
+            );
+
+            // 範囲内に収める
+            texturePosition.x = Mathf.Clamp01(texturePosition.x);
+            texturePosition.y = Mathf.Clamp01(texturePosition.y);
+
+            // ピクセルの色を取得
+            Color pixelColor = noiseTexture.GetPixelBilinear(texturePosition.x, texturePosition.y);
+            float brightness = (pixelColor.r + pixelColor.g + pixelColor.b) / 3f;
+
+            if (brightness >= whiteThreshold && IsValidPosition(randomPosition))
+            {
+                GameObject newObject = PlaceObject(randomPosition);
+                placedPositions.Add(randomPosition);
+            }
+        }
     }
 
-    IEnumerator GeneratePlacement()
+    private Vector3 GetRandomPosition()
     {
-        // Clear existing objects
+        return new Vector3(
+            Random.Range(-placementArea.x / 2f, placementArea.x / 2f),
+            yPosition,
+            Random.Range(-placementArea.y / 2f, placementArea.y / 2f)
+        );
+    }
+
+    private bool IsValidPosition(Vector3 position)
+    {
+        foreach (Vector3 placedPosition in placedPositions)
+        {
+            if (Vector3.Distance(position, placedPosition) < minDistance)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private GameObject PlaceObject(Vector3 position)
+    {
+        GameObject obj = Instantiate(prefabToPlace, position, Quaternion.identity);
+        obj.transform.parent = transform;
+
+        // ランダムなスケールと回転を適用
+        float scale = Random.Range(scaleRange.x, scaleRange.y);
+        obj.transform.localScale = Vector3.one * scale;
+
+        float rotation = Random.Range(rotationRange.x, rotationRange.y);
+        obj.transform.rotation = Quaternion.Euler(0f, rotation, 0f);
+
+        return obj;
+    }
+
+    private void ClearExistingObjects()
+    {
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
-        }
-
-        // Setup noise texture
-        if (noiseTexture != null)
-        {
-            noiseTexture.Release();
-            Destroy(noiseTexture);
-        }
-
-        noiseTexture = new RenderTexture(textureSize, textureSize, 0);
-        noiseTexture.enableRandomWrite = true;
-        noiseTexture.Create();
-
-        // Render noise
-        Graphics.Blit(null, noiseTexture, noiseMaterial);
-
-        // Wait for end of frame to ensure rendering is complete
-        yield return new WaitForEndOfFrame();
-
-        try
-        {
-            // Read pixels
-            noiseResult = new Texture2D(textureSize, textureSize, TextureFormat.RGB24, false);
-            RenderTexture.active = noiseTexture;
-            noiseResult.ReadPixels(new Rect(0, 0, textureSize, textureSize), 0, 0);
-            noiseResult.Apply();
-
-            PlaceObjects();
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Error in GeneratePlacement: {e.Message}");
-        }
-        finally
-        {
-            // Cleanup
-            RenderTexture.active = null;
-            if (noiseTexture != null)
+            if (Application.isPlaying)
             {
-                noiseTexture.Release();
-                Destroy(noiseTexture);
+                Destroy(child.gameObject);
             }
-            if (noiseResult != null)
+            else
             {
-                Destroy(noiseResult);
+                DestroyImmediate(child.gameObject);
             }
         }
     }
 
-    void PlaceObjects()
+    // エディタ上での配置エリアの可視化
+    private void OnDrawGizmosSelected()
     {
-        float cellSize = mapSize / textureSize;
-        int objectsPlaced = 0;
-
-        for (int x = 0; x < textureSize && objectsPlaced < maxObjects; x += samplingStep)
-        {
-            for (int y = 0; y < textureSize && objectsPlaced < maxObjects; y += samplingStep)
-            {
-                Color pixel = noiseResult.GetPixel(x, y);
-                if (pixel.r > threshold)
-                {
-                    // Convert texture coordinates to world position
-                    float worldX = (x / (float)textureSize - 0.5f) * mapSize;
-                    float worldZ = (y / (float)textureSize - 0.5f) * mapSize;
-                    Vector3 position = new Vector3(worldX, 0, worldZ);
-
-                    // Check for nearby objects
-                    bool canPlace = true;
-                    Collider[] colliders = Physics.OverlapSphere(position, minDistance);
-                    if (colliders.Length == 0)
-                    {
-                        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-                        obj.transform.parent = transform;
-                        objectsPlaced++;
-
-                        // Optional: Add random rotation
-                        obj.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-                    }
-                }
-            }
-        }
-        Debug.Log($"Placed {objectsPlaced} objects");
-    }
-
-    void OnValidate()
-    {
-        samplingStep = Mathf.Max(1, samplingStep);
-        maxObjects = Mathf.Max(1, maxObjects);
-        textureSize = Mathf.Max(1, textureSize);
-    }
-
-    private void OnDestroy()
-    {
-        if (noiseTexture != null)
-        {
-            noiseTexture.Release();
-            Destroy(noiseTexture);
-        }
-        if (noiseResult != null)
-        {
-            Destroy(noiseResult);
-        }
+        Gizmos.color = Color.yellow;
+        Vector3 center = transform.position + new Vector3(0f, yPosition, 0f);
+        Vector3 size = new Vector3(placementArea.x, 0.1f, placementArea.y);
+        Gizmos.DrawWireCube(center, size);
     }
 }

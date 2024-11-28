@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deceleration: 0.1
   _maxSpeed: 10
-  _timer: 5
+  _timer: 100
   _velocity: {x: 0, y: 0}
 --- !u!212 &8904338124523039464
 SpriteRenderer:

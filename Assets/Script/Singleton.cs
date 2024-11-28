@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
-#pragma warning disable IDE1006 // 命名スタイル
     private static T instance;
-#pragma warning restore IDE1006 // 命名スタイル
+
     public static T Instance
     {
         get

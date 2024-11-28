@@ -14,11 +14,7 @@ public class CollisionEvent : MonoBehaviour
         _customCollider2D.OnCollisionExit2D += Exit;
     }
 
-    
-    void Update()
-    {
-        
-    }
+
 
     private void Enter(SimpleShapeCollider2D collision)
     {
