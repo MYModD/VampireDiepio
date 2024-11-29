@@ -13,7 +13,6 @@ public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
             Debug.LogError($"SimpleShapeCollider2D‚ª{gameObject.name}‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
             return;
         }
-
         RegisterEvents();
     }
 
@@ -21,11 +20,13 @@ public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
     {
         if(_shapeCollider == null)
         {
+            // Ä“xŒx
             _shapeCollider = GetComponent<SimpleShapeCollider2D>();
+            Debug.LogError($"SimpleShapeCollider2D‚ª{gameObject.name}‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+
         }
 
-        RegisterEvents();
-       
+
     }
 
     protected virtual void OnDisable()
