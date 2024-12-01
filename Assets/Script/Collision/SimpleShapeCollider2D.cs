@@ -30,7 +30,7 @@ public class SimpleShapeCollider2D : MonoBehaviour
 
     private void OnDisable()
     {
-        if (CollisionManager2D.Instance != null)  // enabledチェックを追加
+        if (CollisionManager2D.Instance != null)  // シングルトン先が存在しない場合登録しない
         {
             CollisionManager2D.Instance.UnregisterCollider(this);
         }

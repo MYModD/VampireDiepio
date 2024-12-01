@@ -1,0 +1,99 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Pool;
+
+
+public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour, IPooledObject<T>
+{
+
+    [Header("プールされるオブジェクト")]
+    [SerializeField] protected T _pooledPrefab;
+
+    // プロパティに変更
+    protected virtual IObjectPool<T> ObjectPool
+    {
+        get; set;
+    }
+
+
+    [Header("プールの初期生成数")]
+    [SerializeField] private int _defaultCapacity = 32;
+
+    [Header("プールの最大値")]
+    [SerializeField] private int _maxSize = 100;
+
+    private const bool COLLECTION_CHECK = true; // コレクションチェックのフラグ。特に意味がないのでtrue
+
+
+
+
+
+    /// <summary>
+    /// プールマネージャーの初期化 _defaultCapacity分最初に生成する 重すぎたら一フレームごとに生成する予定
+    /// </summary>
+
+    private void Awake()
+    {
+        Initialize();
+    }
+    public virtual void Initialize()
+    {
+
+        ObjectPool = new ObjectPool<T>(
+            Create,
+            OnGetFromPool,
+            OnReleaseToPool,
+            OnDestroyPooledObject,
+            COLLECTION_CHECK,
+            _defaultCapacity,
+            _maxSize
+        );
+
+
+        // 初期分オブジェクトを生成、プールに追加
+        for (int i = 0; i < _defaultCapacity; i++)
+        {
+            T game = Create();
+            ObjectPool.Release(game);
+        }
+    }
+
+    /// <summary>
+    /// 新しいインスタンスを生成するメソッド。
+    /// </summary>   
+    protected virtual T Create()
+    {
+        var instance = Instantiate(_pooledPrefab, transform.position, Quaternion.identity, transform);
+        instance.ObjectPool = (IPooledObject<T>)ObjectPool; // 明示的なキャストを追加
+        return instance;
+    }
+
+
+    /// <summary>
+    /// オブジェクトをプールに戻す際に呼び出されるメソッド _objectPool.Release()するときに呼ばれる
+    /// </summary>
+    protected virtual void OnReleaseToPool(T pooledObject)
+    {
+        pooledObject.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// プールからオブジェクトを取得する際に呼び出されるメソッド _objectPool.Get()するときに呼ばれる
+    /// </summary>
+    protected virtual void OnGetFromPool(T pooledObject)
+    {
+        pooledObject.gameObject.SetActive(true);
+    }
+
+
+
+    /// <summary>
+    /// プールされたオブジェクトを破棄する際に呼び出されるメソッド。
+    /// </summary>
+    protected virtual void OnDestroyPooledObject(T pooledObject)
+    {
+        pooledObject.ReturnToPool();
+        Destroy(pooledObject.gameObject);
+    }
+}

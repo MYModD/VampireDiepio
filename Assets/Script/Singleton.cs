@@ -49,7 +49,6 @@ namespace Diepio
         {
             instance = null;
         }
-        isQuitting = true;
 
     }
 

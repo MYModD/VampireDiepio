@@ -13,14 +13,15 @@ public class PlayerCollisionEvent : CollisionEventBase
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
 
-        // switch文で使えないのでif文 上を頻度が高いものにすると処理が早くなる
+        // switch文が使えないのでif文
         if (collision.gameObject.CompareTag(_debrisTag))
         {
             //プレイヤーの反発処理、プレイヤーのHP処理、デブリの反発処理、デブリのHP処理
             _playerMove.OnDebrisCollision();
             _playerHP.OnDebirsDamage();
 
-
+            //collision.GetComponent<DebrisMove>().OnPlayerCollision();
+            //collision.GetComponent<DebrisHP>().DegreeHP();
 
         }
         else if (collision.gameObject.CompareTag(_enemyTag))
