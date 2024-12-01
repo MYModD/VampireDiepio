@@ -972,9 +972,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1206159197}
   - component: {fileID: 1206159193}
-  - component: {fileID: 1206159199}
-  - component: {fileID: 1206159200}
+  - component: {fileID: 1206159203}
   - component: {fileID: 1206159201}
+  - component: {fileID: 1206159200}
+  - component: {fileID: 1206159199}
   - component: {fileID: 1206159202}
   - component: {fileID: 1206159198}
   - component: {fileID: 1206159194}
@@ -1004,7 +1005,8 @@ MonoBehaviour:
   _recoilDeceleration: 2
   _recoilMaxSpeed: 18.96
   _velocityMaxSpeed: 16.18
-  _velocityDeceleration: 0.5
+  _debrisDeceleration: 0.2
+  _enemyDeceleration: 0.2
   _debugText: {fileID: 2004412196}
   _playerFire: {fileID: 1206159200}
 --- !u!212 &1206159194
@@ -1205,6 +1207,21 @@ MonoBehaviour:
   _bossTag: Boss
   _enemyBulletTag: EnemyBullet
   _playerMove: {fileID: 1206159193}
+  _playerHP: {fileID: 1206159203}
+--- !u!114 &1206159203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206159192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fd49971f8c65b498657c28433dca16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 100
+  _hitDebrisDamage: 1
 --- !u!1 &1214415826
 GameObject:
   m_ObjectHideFlags: 0

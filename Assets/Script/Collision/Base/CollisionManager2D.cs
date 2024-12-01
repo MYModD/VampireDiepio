@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CollisionManager2D : Singleton<CollisionManager2D>
+public class CollisionManager2D : Diepio.Singleton<CollisionManager2D>
 {
     // 登録された全てのコライダーのリスト
     private List<SimpleShapeCollider2D> _colliders = new List<SimpleShapeCollider2D>();
@@ -13,15 +13,16 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
     /// <summary>
     /// シングルトンの初期化
     /// </summary>
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-   
 
     protected override void OnDestroy()
     {
+        base.OnDestroy();
+
         // シーン遷移時にリストをクリア
         if (_colliders != null)
         {
@@ -31,10 +32,25 @@ public class CollisionManager2D : Singleton<CollisionManager2D>
         {
             _currentCollisions.Clear();
         }
-        base.OnDestroy();
+
     }
 
-   
+
+    protected override void OnApplicationQuit()
+    {
+
+        base.OnApplicationQuit();
+        // アプリケーション終了時にクリーンアップを確実に行う
+        if (_colliders != null)
+        {
+            _colliders.Clear();
+        }
+        if (_currentCollisions != null)
+        {
+            _currentCollisions.Clear();
+        }
+    }
+
     /// <summary>
     /// 毎フレーム実行される当たり判定チェック
     /// </summary>

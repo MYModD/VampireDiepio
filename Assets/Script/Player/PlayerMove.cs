@@ -26,8 +26,12 @@ public class PlayerMove : MonoBehaviour
     [Header("全体の最高速度")]
     [SerializeField] private float _velocityMaxSpeed = 10f;
 
-    [Header("衝突時の減衰率")]
-    [SerializeField] private float _velocityDeceleration = 2f;
+    [Header("デブリ衝突時の減衰率")]
+    [SerializeField,Range(0,1f)] private float _debrisDeceleration = 0.5f;
+
+    [Header("デブリ衝突時の減衰率")]
+    [SerializeField, Range(0, 1f)] private float _enemyDeceleration = 0.5f;
+
 
 
     [SerializeField] private TextMeshProUGUI _debugText; // デバッグ用テキスト
@@ -95,9 +99,17 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDebrisCollision()
     {
-        Debug.Log("実行します");
-        _currentInputVelocity *= 0.5f;  // 入力速度を半分
-        _currentRecoilVelocity *= 0.5f; // 反動速度を半分
+        // 全体的に減衰させる
+
+        _currentInputVelocity *= _debrisDeceleration;  // 入力速度を減少
+        _currentRecoilVelocity *= _debrisDeceleration; // 反動速度を減少
+    }
+
+
+    public void OnEnemyCollision()
+    {
+        _currentInputVelocity *= _debrisDeceleration;  // 入力速度を減少
+        _currentRecoilVelocity *= _debrisDeceleration; // 反動速度を減少
     }
 
 

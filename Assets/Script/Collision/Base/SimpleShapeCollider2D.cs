@@ -30,7 +30,10 @@ public class SimpleShapeCollider2D : MonoBehaviour
 
     private void OnDisable()
     {
-        CollisionManager2D.Instance.UnregisterCollider(this);
+        if (CollisionManager2D.Instance != null)  // enabledチェックを追加
+        {
+            CollisionManager2D.Instance.UnregisterCollider(this);
+        }
     }
 
     /// <summary>
@@ -83,6 +86,8 @@ public class SimpleShapeCollider2D : MonoBehaviour
         Vector2[] corners = GetSquareCorners();
         for (int i = 0; i < 4; i++)
         {
+
+            //これすき
             Gizmos.DrawLine(corners[i], corners[(i + 1) % 4]);
         }
     }

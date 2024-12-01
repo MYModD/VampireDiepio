@@ -1,50 +1,36 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+
+namespace Diepio
+{
+    public abstract class Singleton<T> : MonoBehaviour where T : Component
 {
     private static T instance;
+    private static bool isQuitting;
+
     public static T Instance
     {
         get
         {
+            if (isQuitting)
+            {
+                return null;  // OnDestroy,OndiseableéûÇ…êVÇµÇ≠çÏÇÁÇÍÇÈÇÃÇñhÇÆÇΩÇﬂ
+            }
+
             if (instance == null)
             {
-                instance = (T)FindObjectOfType(typeof(T));
+                instance = FindObjectOfType<T>();
                 if (instance == null)
                 {
-                    SetupInstance();
+                    GameObject go = new GameObject(typeof(T).Name);
+                    instance = go.AddComponent<T>();
                 }
             }
             return instance;
         }
     }
 
-    public virtual void Awake()
-    {
-        RemoveDuplicates();
-    }
-
-    protected virtual void OnDestroy()
-    {
-        if (instance == this)
-        {
-            instance = null;
-        }
-    }
-
-    private static void SetupInstance()
-    {
-        instance = (T)FindObjectOfType(typeof(T));
-        if (instance == null)
-        {
-            GameObject gameObj = new GameObject();
-            gameObj.name = typeof(T).Name;
-            instance = gameObj.AddComponent<T>();
-            // DontDestroyOnLoadÇÇ±Ç±Ç≈ÇÕåƒÇ—èoÇ≥Ç»Ç¢
-        }
-    }
-
-    private void RemoveDuplicates()
+    protected virtual void Awake()
     {
         if (instance == null)
         {
@@ -56,4 +42,21 @@ public class Singleton<T> : MonoBehaviour where T : Component
             Destroy(gameObject);
         }
     }
+
+    protected virtual void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+        isQuitting = true;
+
+    }
+
+    protected virtual void OnApplicationQuit()
+    {
+        isQuitting = true;
+
+    }
+}
 }

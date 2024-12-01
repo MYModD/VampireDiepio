@@ -9,22 +9,26 @@ public class PlayerCollisionEvent : CollisionEventBase
     [SerializeField,Tag] private string _enemyBulletTag;
 
     [SerializeField] private PlayerMove _playerMove;
+    [SerializeField,Tag] private PlayerHP _playerHP;
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
 
         // switch文で使えないのでif文 上を頻度が高いものにすると処理が早くなる
         if (collision.gameObject.CompareTag(_debrisTag))
         {
-            //ここにデブリのHP減らす処理+
-            Debug.Log("デブリにヒットしたよ");
+            //プレイヤーの反発処理、プレイヤーのHP処理、デブリの反発処理、デブリのHP処理
             _playerMove.OnDebrisCollision();
+            _playerHP.OnDebirsDamage();
 
 
 
         }
         else if (collision.gameObject.CompareTag(_enemyTag))
         {
-            Debug.Log($"{collision.gameObject.name}:にヒットしたよ");
+            // エネミーのHP処理、エネミーの反発処理、プレイヤーの反発処理、プレイヤーのHP処理
+            _playerMove.OnEnemyCollision();
+
+
         }
         else if (collision.gameObject.CompareTag(_bossTag))
         {
