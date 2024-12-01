@@ -49,7 +49,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = _currentVelocity;
+        //transform.position = _currentVelocity;
     }
 
 
@@ -96,7 +96,8 @@ public class PlayerMove : MonoBehaviour
     public void OnDebrisCollision()
     {
         Debug.Log("実行します");
-        _currentVelocity *= 0.5f; // 速度を半分にする例
+        _currentInputVelocity *= 0.5f;  // 入力速度を半分
+        _currentRecoilVelocity *= 0.5f; // 反動速度を半分
     }
 
 
