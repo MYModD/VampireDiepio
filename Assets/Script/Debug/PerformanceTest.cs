@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -49,5 +50,15 @@ public class PerformanceTest : MonoBehaviour
 
         Debug.Log($"Dictionary Time: {dictTime}s");
         Debug.Log($"GetComponent Time: {getCompTime}s");
+
+        
+
+
+        
+        
     }
+
+
+
+    
 }

@@ -946,6 +946,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cedee2b54bb664aa060f9827645eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debrisTag: Debris
+  _enemyTag: Enemy
+  _bossTag: Boss
+  _enemyBulletTag: 
 --- !u!1 &1214415826
 GameObject:
   m_ObjectHideFlags: 0
