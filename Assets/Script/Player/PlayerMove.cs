@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
+using Sirenix.Utilities;
 public class PlayerMove : MonoBehaviour
 {
     [Header("入力の加速度")]
@@ -25,6 +26,8 @@ public class PlayerMove : MonoBehaviour
     [Header("全体の最高速度")]
     [SerializeField] private float _velocityMaxSpeed = 10f;
 
+    [Header("衝突時の減衰率")]
+    [SerializeField] private float _velocityDeceleration = 2f;
 
 
     [SerializeField] private TextMeshProUGUI _debugText; // デバッグ用テキスト
@@ -38,7 +41,6 @@ public class PlayerMove : MonoBehaviour
     private Vector2 _currentInputVelocity;
     // 反動の速度ベクトル
     private Vector2 _currentRecoilVelocity;
-
 
     // 入力ベクトル
     private Vector2 _inputDirection;
@@ -88,6 +90,13 @@ public class PlayerMove : MonoBehaviour
         // 位置を更新
         transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
        
+    }
+
+
+    public void OnDebrisCollision()
+    {
+        Debug.Log("実行します");
+        _currentVelocity *= 0.5f; // 速度を半分にする例
     }
 
 

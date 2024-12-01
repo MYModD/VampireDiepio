@@ -62,7 +62,7 @@ public class SimpleShapeCollider2D : MonoBehaviour
     /// </summary>
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
 
         switch (_collisionType)
         {

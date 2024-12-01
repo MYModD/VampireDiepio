@@ -6,16 +6,7 @@ using UnityEngine;
 public class DebrisHP : MonoBehaviour
 {
     public int _hp = 10;
-    void Awake()
-    {
 
-    }
-
-
-    void Update()
-    {
-
-    }
 
     public void DegreeHP(int degreeValue)
     {

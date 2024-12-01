@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;   
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,15 @@ using UnityEngine;
 
 public class DebrisCollisionEvent : CollisionEventBase
 {
-    [SerializeField] private DebrisHP _debrisHP;
-    [Header("Œã‚Å’¼‚· Œ¸­’l")]
-    [SerializeField] private int  _degreeValue;
+
+    [SerializeField,Tag] private string _debrisTag;
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+       if(collision.gameObject.CompareTag(_debrisTag))
         {
-            Debug.Log($"{collision.gameObject.name}:‚Éƒqƒbƒg‚µ‚½‚æ");
-            _debrisHP.DegreeHP(_degreeValue);
-
+            //‚±‚±‚É”½”­‚·‚éˆ—‚ğ‘‚­
         }
-            
+
     }
 
     public override void OnCustomCollisionStay(SimpleShapeCollider2D collision)
