@@ -4,15 +4,17 @@ using UnityEngine.InputSystem;
 public class PlayerFire : MonoBehaviour
 {
     public Transform _firePostion;
-    public BulletMove _bulletMoveObject;
     public Transform _bulletParent;
 
     public float _coolTime = 0.5f; // 弾発射のクールダウンタイム
     public float _multiplyForce = 1f;
 
-    public PlayerMove _playerMove;
     private float _coolTimeValue;
     private bool _isFiring = false; // 長押しを判定するフラグ
+
+    [SerializeField] private  PlayerMove _playerMove;
+    [SerializeField] private BulletObjectPoolManager _bulletObjectPoolManager;
+
 
     void Update()
     {   
@@ -22,7 +24,8 @@ public class PlayerFire : MonoBehaviour
             _coolTimeValue -= Time.deltaTime;
             if (_coolTimeValue <= 0f)
             {
-                FireBullet();
+                // ここで発射
+                _bulletObjectPoolManager.FirePlayerBullet(_firePostion.position,transform.position , _multiplyForce);
                 _coolTimeValue = _coolTime; // クールダウンをリセット
             }
         }
@@ -42,12 +45,13 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
+    /*
     private void FireBullet()
     {
 
         // 生成しているので後でオブジェクトプールに変更
         // 弾を生成して発射
-        BulletMove bulletObject = Instantiate(_bulletMoveObject, _firePostion.position, Quaternion.identity, _bulletParent);
+        // var bulletObject = _bulletObjectPoolManager.ObjectPool.Get(0);
         Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
         force.Normalize();
         // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
@@ -56,7 +60,7 @@ public class PlayerFire : MonoBehaviour
         // プレイヤーに反動を与える
         _playerMove.AddRecoilForce(force);
 
-    }
+    }*/
 
     
 }

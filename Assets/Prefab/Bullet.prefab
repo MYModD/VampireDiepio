@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5651148700190582060}
   - component: {fileID: 7988308753485298353}
   - component: {fileID: 7100204857921901349}
+  - component: {fileID: 5436787204594377241}
   - component: {fileID: 8904338124523039464}
   - component: {fileID: 8188197925690078716}
   m_Layer: 0
@@ -51,6 +52,7 @@ MonoBehaviour:
   _deceleration: 0.1
   _timer: 5
   _currentVelocity: {x: 0, y: 0}
+  poolableBullet: {fileID: 5436787204594377241}
 --- !u!114 &7988308753485298353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,6 +82,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collisionType: 0
   _size: 0.54
+--- !u!114 &5436787204594377241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868915174853936545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72148717cd62bf458a774183c0ebe15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletMove: {fileID: 5651148700190582060}
 --- !u!212 &8904338124523039464
 SpriteRenderer:
   m_ObjectHideFlags: 0

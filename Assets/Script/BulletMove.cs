@@ -14,6 +14,10 @@ public class BulletMove : MonoBehaviour
 
     private float _timerValue = default; // 時間計算用
 
+
+    [SerializeField] private PoolableBullet poolableBullet = default;
+
+
     private void FixedUpdate()
     {
         // タイマーが0になったらオブジェクトOFF
@@ -21,7 +25,7 @@ public class BulletMove : MonoBehaviour
         if (_timerValue <= 0)
         {
             this.gameObject.SetActive(false);
-            
+            poolableBullet.ReturnToPool();
         }
 
         // 慣性を持たせるために減速を追加
