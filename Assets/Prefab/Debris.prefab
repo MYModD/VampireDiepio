@@ -154,6 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1b0f2bc55041048a10b1a175ce2704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deceleration: 2
+  _deceleration: 1
   _currentVelocity: {x: 0, y: 0}
-  _debrisDeceleration: 0.249
+  _debrisDeceleration: 0.676

@@ -37,7 +37,6 @@ public class DebrisMove : MonoBehaviour
     /// <param name="playerVelocity"></param>
     public void BouncedDebris(Vector2 debrisVelocity)
     {
-        Debug.Log("正しく動作していますよ");
         _currentVelocity += debrisVelocity;
 
     }
@@ -46,10 +45,10 @@ public class DebrisMove : MonoBehaviour
     /// <summary>
     /// デブリ（ぶつけた側）の減衰処理
     /// </summary>
-    public void OnDebrisCollision()
+    public void OnDebrisCollisionRecoil()
     {
         // 全体的に減衰させる
-
+        Debug.Log($"{gameObject.name}");
         _currentVelocity *= _debrisDeceleration;  // 入力速度を減少
     }
 

@@ -1,23 +1,31 @@
 using NaughtyAttributes;
-using System.Collections;   
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class DebrisCollisionEvent : CollisionEventBase
 {
 
-    [SerializeField,Tag] private string _debrisTag;
+    [SerializeField, Tag] private string _debrisTag;
     [SerializeField] private DebrisMove _debrisMove;
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
-    {   
-       if(collision.gameObject.CompareTag(_debrisTag))
+    {
+        if (collision.gameObject.CompareTag(_debrisTag))
         {
+            Debug.Log($"{collision.gameObject.name}");
             //‚±‚±‚É”½”­‚·‚éˆ—‚ğ‘‚­
             DebrisComponents hitDebris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
 
-            _debrisMove.OnDebrisCollision();
-            hitDebris.debrisMove.BouncedDebris(_debrisMove._currentVelocity);
+
+            if (_debrisMove._currentVelocity.magnitude > hitDebris.debrisMove._currentVelocity.magnitude)
+            {
+                // ƒfƒuƒŠ‚ª‘‚¢•û‚Éˆ—‚ğ•ª‚¯‚é
+                _debrisMove.OnDebrisCollisionRecoil();
+                hitDebris.debrisMove.BouncedDebris(_debrisMove._currentVelocity);
+            }
+
+
+
+
         }
 
     }

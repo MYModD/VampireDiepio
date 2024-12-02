@@ -31,7 +31,7 @@ public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
 
     protected virtual void OnDisable()
     {
-        UnregisterEvents();
+        //UnregisterEvents();
     }
 
 
