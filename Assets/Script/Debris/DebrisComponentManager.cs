@@ -13,17 +13,17 @@ public class DebrisComponentManager : Singleton<DebrisComponentManager>
 {
     // シングルトンがMonobehavior継承しているので重い可能性がある
 
-    
+
     private static Dictionary<int, DebrisComponents> _debrisComponents = new Dictionary<int, DebrisComponents>();
 
-    public static void RegisterDebris(GameObject debris)
+    public void RegisterDebris(GameObject debris)
     {
-        var instanceId = debris.GetInstanceID();
+        int instanceId = debris.GetInstanceID();
 
         // すでに登録されている場合はスキップ
         if (_debrisComponents.ContainsKey(instanceId)) return;
 
-        var components = new DebrisComponents
+        DebrisComponents components = new DebrisComponents
         {
             debrisMove = debris.GetComponent<DebrisMove>(),
             debrisHP = debris.GetComponent<DebrisHP>()
@@ -35,7 +35,7 @@ public class DebrisComponentManager : Singleton<DebrisComponentManager>
 
 
 
-    public static DebrisComponents GetDebrisComponents(GameObject debris)
+    public  DebrisComponents GetDebrisComponents(GameObject debris)
     {
         return _debrisComponents[debris.GetInstanceID()];
     }

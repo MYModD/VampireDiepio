@@ -10,6 +10,7 @@ public class DebrisHP : MonoBehaviour
 
     public void DegreeHP(int degreeValue)
     {
+        Debug.Log("ƒeƒXƒg".Warning());
         _hp -= degreeValue;
         if (_hp <= 0)
         {

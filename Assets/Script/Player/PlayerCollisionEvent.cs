@@ -20,8 +20,11 @@ public class PlayerCollisionEvent : CollisionEventBase
             _playerMove.OnDebrisCollision();
             _playerHP.OnDebirsDamage();
 
-            //collision.GetComponent<DebrisMove>().OnPlayerCollision();
-            //collision.GetComponent<DebrisHP>().DegreeHP();
+
+            DebrisComponents debris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
+            debris.debrisHP.DegreeHP(20);
+            debris.debrisMove.BounceDebris();
+
 
         }
         else if (collision.gameObject.CompareTag(_enemyTag))
