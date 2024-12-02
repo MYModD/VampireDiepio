@@ -8,11 +8,16 @@ public class DebrisCollisionEvent : CollisionEventBase
 {
 
     [SerializeField,Tag] private string _debrisTag;
+    [SerializeField] private DebrisMove _debrisMove;
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
        if(collision.gameObject.CompareTag(_debrisTag))
         {
             //‚±‚±‚É”½”­‚·‚éˆ—‚ğ‘‚­
+            DebrisComponents hitDebris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
+
+            _debrisMove.OnDebrisCollision();
+            hitDebris.debrisMove.BouncedDebris(_debrisMove._currentVelocity);
         }
 
     }

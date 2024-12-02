@@ -97,7 +97,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    public void OnDebrisCollision()
+    public void ReduceVelocityOnDebrisHit()
     {
         // 全体的に減衰させる
 
@@ -106,7 +106,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    public void OnEnemyCollision()
+    public void ReduceVelocityOnEnemyHit()
     {
         _currentInputVelocity *= _debrisDeceleration;  // 入力速度を減少
         _currentRecoilVelocity *= _debrisDeceleration; // 反動速度を減少

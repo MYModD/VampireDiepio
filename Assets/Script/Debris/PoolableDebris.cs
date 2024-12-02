@@ -19,10 +19,10 @@ public class PoolableDebris : MonoBehaviour, IPooledObject<PoolableDebris>
 
 
     /// <summary>
-    /// プールに返却する処理
+    /// プールに返却するときの処理
     /// </summary>
     public void ReturnToPool()
     {
-        
+        ObjectPool.Release(this);
     }
 }

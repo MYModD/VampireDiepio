@@ -36,13 +36,21 @@ public class DebrisComponentManager : Singleton<DebrisComponentManager>
         // è„èëÇ´Ç∑ÇÈèÍçáÇ‡Ç†ÇÈ
         _debrisComponents[instanceId] = components;
 
-        foreach (var item in _debrisComponents)
-        {
-            Debug.Log($"{item.Key} : {item.Value}".Warning());
-        }
+
 
     }
 
+
+    /// <summary>
+    /// Debugóp
+    /// </summary>
+    public void DebugDictionary()
+    {
+        foreach (var item in _debrisComponents)
+        {
+            Debug.Log($"{item.Key} : {item.Value} :{item.Value.debrisHP} : {item.Value.debrisMove}".Warning());
+        }
+    }
 
 
     public DebrisComponents GetDebrisComponents(GameObject debris)

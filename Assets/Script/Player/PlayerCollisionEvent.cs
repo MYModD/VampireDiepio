@@ -17,12 +17,18 @@ public class PlayerCollisionEvent : CollisionEventBase
         if (collision.gameObject.CompareTag(_debrisTag))
         {
             //プレイヤーの反発処理、プレイヤーのHP処理、デブリの反発処理、デブリのHP処理
-            _playerMove.OnDebrisCollision();
+            _playerMove.ReduceVelocityOnDebrisHit();
             _playerHP.OnDebirsDamage();
 
 
+            if (DebrisComponentManager.Instance == null) Debug.LogError("原因ここ");   
+
+
             DebrisComponents debris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
-            debris.debrisMove.BounceDebris();
+            
+
+            //ここ直す
+            debris.debrisMove.BouncedPlayer(_playerMove._currentVelocity);
             debris.debrisHP.DegreeHP(10);
 
 
@@ -30,15 +36,17 @@ public class PlayerCollisionEvent : CollisionEventBase
         else if (collision.gameObject.CompareTag(_enemyTag))
         {
             // エネミーのHP処理、エネミーの反発処理、プレイヤーの反発処理、プレイヤーのHP処理
-            _playerMove.OnEnemyCollision();
+            _playerMove.ReduceVelocityOnEnemyHit();
 
 
         }
         else if (collision.gameObject.CompareTag(_bossTag))
         {
             Debug.Log($"{collision.gameObject.name}:にヒットしたよ");
+
         }else if(collision.gameObject.CompareTag(_enemyBulletTag))
         {
+
             Debug.Log($"{collision.gameObject.name}:にヒットしたよ");
         }
     }

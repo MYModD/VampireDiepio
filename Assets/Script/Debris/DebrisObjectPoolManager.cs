@@ -12,4 +12,10 @@ public class DebrisObjectPoolManager : ObjectPoolBase<PoolableDebris>
         DebrisComponentManager.Instance.RegisterDebris(poolableDebris.gameObject);
         return poolableDebris;
     }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+    }
 }

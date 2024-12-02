@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class DebrisHP : MonoBehaviour
 {
-    public int _hp = 10;
+
+    
+    public int _hp  = 10;
 
 
     public void DegreeHP(int degreeValue)
     {
-        Debug.Log("ƒeƒXƒg".Warning());
+        
         _hp -= degreeValue;
         if (_hp <= 0)
         {

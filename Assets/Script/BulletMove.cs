@@ -6,9 +6,6 @@ public class BulletMove : MonoBehaviour
     [Header("減速度")]
     [SerializeField] private float _deceleration = 2f;
 
-    [Header("最高速度")]
-    [SerializeField] private float _maxSpeed = 10f;
-
     [Header("タイマー")]
     [SerializeField] private float _timer = 5f;
 

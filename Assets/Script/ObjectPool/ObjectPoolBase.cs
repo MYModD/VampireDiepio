@@ -30,7 +30,7 @@ public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour,
     /// プールマネージャーの初期化 _defaultCapacity分最初に生成する 重すぎたら一フレームごとに生成する予定
     /// </summary>
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Initialize();
     }
@@ -54,7 +54,10 @@ public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour,
         {
             T game = Create();
             ObjectPool.Release(game);
+
         }
+        //DebrisComponentManager.Instance.DebugDictionary();
+
     }
 
     /// <summary>
