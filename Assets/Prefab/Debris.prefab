@@ -157,3 +157,6 @@ MonoBehaviour:
   _deceleration: 1
   _currentVelocity: {x: 0, y: 0}
   _debrisDeceleration: 0.676
+  _pushForce: 5
+  _minPushDistance: 0.5
+  _maxPushVelocity: 5

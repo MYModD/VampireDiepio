@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1322590635893790127}
   - component: {fileID: 5651148700190582060}
+  - component: {fileID: 7988308753485298353}
+  - component: {fileID: 7100204857921901349}
   - component: {fileID: 8904338124523039464}
   - component: {fileID: 8188197925690078716}
-  - component: {fileID: 7100204857921901349}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -48,9 +49,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deceleration: 0.1
-  _maxSpeed: 10
   _timer: 5
-  _velocity: {x: 0, y: 0}
+  _currentVelocity: {x: 0, y: 0}
+--- !u!114 &7988308753485298353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868915174853936545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d53c0b647a1b9438086ba35fb64242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTag: Enemy
+  _debrisTag: Debris
+  _bulletMove: {fileID: 5651148700190582060}
+--- !u!114 &7100204857921901349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868915174853936545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a985b981ec12dd42bc07c6995aab7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionType: 0
+  _size: 0.54
 --- !u!212 &8904338124523039464
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -138,17 +167,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7100204857921901349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6868915174853936545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a985b981ec12dd42bc07c6995aab7a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collisionType: 0
-  _size: 0.54
