@@ -45,5 +45,6 @@ public class BulletMove : MonoBehaviour
         _timerValue = _timer;
     }
 
+   
 
 }

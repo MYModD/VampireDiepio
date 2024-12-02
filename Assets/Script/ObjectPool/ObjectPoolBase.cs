@@ -26,9 +26,6 @@ public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour,
     private const bool COLLECTION_CHECK = true; // コレクションチェックのフラグ。特に意味がないのでtrue
 
 
-
-
-
     /// <summary>
     /// プールマネージャーの初期化 _defaultCapacity分最初に生成する 重すぎたら一フレームごとに生成する予定
     /// </summary>
@@ -37,6 +34,7 @@ public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour,
     {
         Initialize();
     }
+
     public virtual void Initialize()
     {
 
