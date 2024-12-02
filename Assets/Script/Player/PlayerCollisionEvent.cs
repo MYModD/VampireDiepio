@@ -22,8 +22,8 @@ public class PlayerCollisionEvent : CollisionEventBase
 
 
             DebrisComponents debris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
-            debris.debrisHP.DegreeHP(20);
             debris.debrisMove.BounceDebris();
+            debris.debrisHP.DegreeHP(10);
 
 
         }

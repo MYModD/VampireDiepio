@@ -21,7 +21,11 @@ public class DebrisComponentManager : Singleton<DebrisComponentManager>
         int instanceId = debris.GetInstanceID();
 
         // ‚·‚Å‚É“o˜^‚³‚ê‚Ä‚¢‚éê‡‚ÍƒXƒLƒbƒv
-        if (_debrisComponents.ContainsKey(instanceId)) return;
+        if (_debrisComponents.ContainsKey(instanceId))
+        {
+            Debug.LogError("‚·‚Å‚É“o˜^‚³‚ê‚Ä‚¢‚Ü‚·");
+            return;
+        }
 
         DebrisComponents components = new DebrisComponents
         {
@@ -31,11 +35,17 @@ public class DebrisComponentManager : Singleton<DebrisComponentManager>
 
         // ã‘‚«‚·‚éê‡‚à‚ ‚é
         _debrisComponents[instanceId] = components;
+
+        foreach (var item in _debrisComponents)
+        {
+            Debug.Log($"{item.Key} : {item.Value}".Warning());
+        }
+
     }
 
 
 
-    public  DebrisComponents GetDebrisComponents(GameObject debris)
+    public DebrisComponents GetDebrisComponents(GameObject debris)
     {
         return _debrisComponents[debris.GetInstanceID()];
     }
