@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 
 public class PoolableDebris : MonoBehaviour, IPooledObject<PoolableDebris>
 {
-    public IPooledObject<PoolableDebris> ObjectPool { get; set; }
+    public IObjectPool<PoolableDebris> ObjectPool { get; set; }
 
 
     /// <summary>

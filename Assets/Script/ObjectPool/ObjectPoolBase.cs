@@ -63,7 +63,7 @@ public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour,
     protected virtual T Create()
     {
         var instance = Instantiate(_pooledPrefab, transform.position, Quaternion.identity, transform);
-        instance.ObjectPool = (IPooledObject<T>)ObjectPool; // 明示的なキャストを追加
+        instance.ObjectPool = ObjectPool; // 明示的なキャストを追加
         return instance;
     }
 
