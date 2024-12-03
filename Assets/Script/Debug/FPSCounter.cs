@@ -7,6 +7,9 @@ public class FPSCounter : MonoBehaviour
 {
 
     public TextMeshProUGUI _text;
+
+    public float _updateInterval = 0.5f;
+    private float _cashTime = 0f;
     private void Awake()
     {
     }
@@ -14,14 +17,25 @@ public class FPSCounter : MonoBehaviour
     
     void Update()
     {
-        float fps = 1f / Time.deltaTime;
-        int fpsSpecial = (int)fps;
-        if(fpsSpecial > 99)
+        if(Time.time - _cashTime > _updateInterval)
         {
-            _text.text = $"FPS : {fpsSpecial.ToString()}";
+            float fps = 1f / Time.deltaTime;
+            int fpsSpecial = (int)fps;
+            if (fpsSpecial > 99)
+            {
+                _text.text = $"FPS : {fpsSpecial.ToString()}";
 
+            }
+            else
+            {
+                _text.text = $"FPS : 0{fpsSpecial.ToString()}";
+
+            }
+
+            _cashTime = Time.time;
         }
-        _text.text = $"FPS : 0{fpsSpecial.ToString()}";
+
+        
 
 
     }
