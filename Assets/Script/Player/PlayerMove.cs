@@ -1,8 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using NaughtyAttributes;
-using Sirenix.Utilities;
 public class PlayerMove : MonoBehaviour
 {
     [Header("入力の加速度")]
@@ -27,15 +25,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _velocityMaxSpeed = 10f;
 
     [Header("デブリ衝突時の減衰率")]
-    [SerializeField,Range(0,1f)] private float _debrisDeceleration = 0.5f;
+    [SerializeField, Range(0, 1f)] private float _debrisDeceleration = 0.5f;
 
     [Header("デブリ衝突時の減衰率")]
     [SerializeField, Range(0, 1f)] private float _enemyDeceleration = 0.5f;
 
 
-
     [SerializeField] private TextMeshProUGUI _debugText; // デバッグ用テキスト
-    [SerializeField] private PlayerFire _playerFire;
 
 
 
@@ -48,12 +44,13 @@ public class PlayerMove : MonoBehaviour
 
     // 入力ベクトル
     private Vector2 _inputDirection;
-    
 
+
+    private PlayerFire _playerFire;
 
     private void Awake()
     {
-        //transform.position = _currentVelocity;
+        _playerFire = GetComponent<PlayerFire>();
     }
 
 
@@ -65,7 +62,7 @@ public class PlayerMove : MonoBehaviour
 
     private void UpdateVelocityAndPosition()
     {
-        
+
         // 入力ベクトルに加速度を加える
         _currentInputVelocity += _inputDirection * _inputAcceleration * Time.fixedDeltaTime;
 
@@ -93,7 +90,7 @@ public class PlayerMove : MonoBehaviour
 
         // 位置を更新
         transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
-       
+
     }
 
 

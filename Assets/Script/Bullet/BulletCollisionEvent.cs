@@ -7,7 +7,13 @@ public class BulletCollisionEvent : CollisionEventBase
     [SerializeField, Tag] private string _enemyTag;
     [SerializeField, Tag] private string _debrisTag;
 
-    [SerializeField] private BulletMove _bulletMove;
+    private BulletMove _bulletMove;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _bulletMove = GetComponent<BulletMove>();
+    }
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
         if (collision.gameObject.CompareTag(_debrisTag)){

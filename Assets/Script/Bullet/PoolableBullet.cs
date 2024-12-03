@@ -7,9 +7,15 @@ public class PoolableBullet : MonoBehaviour, IPooledObject<PoolableBullet>
 {
     public IObjectPool<PoolableBullet> ObjectPool { private get; set; }
 
-    [SerializeField] private BulletMove _bulletMove;
+    private BulletMove _bulletMove;
+
+    private void Awake()
+    {
+        _bulletMove = GetComponent<BulletMove>();
+    }
+
     /// <summary>
-    /// ‰Šú‰»
+    /// ’e‚Ì‰Šú‰»
     /// </summary>
     public void Initialize()
     {
@@ -21,5 +27,6 @@ public class PoolableBullet : MonoBehaviour, IPooledObject<PoolableBullet>
     public void ReturnToPool()
     {
         ObjectPool.Release(this);
+        Initialize();
     }
 }

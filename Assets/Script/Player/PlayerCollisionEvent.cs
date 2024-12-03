@@ -8,8 +8,16 @@ public class PlayerCollisionEvent : CollisionEventBase
     [SerializeField,Tag] private string _bossTag;
     [SerializeField,Tag] private string _enemyBulletTag;
 
-    [SerializeField] private PlayerMove _playerMove;
-    [SerializeField,Tag] private PlayerHP _playerHP;
+
+    private PlayerMove _playerMove;
+    private PlayerHP _playerHP;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _playerMove = GetComponent<PlayerMove>();
+        _playerHP = GetComponent<PlayerHP>();
+    }
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
 

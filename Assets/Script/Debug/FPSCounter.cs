@@ -16,7 +16,13 @@ public class FPSCounter : MonoBehaviour
     {
         float fps = 1f / Time.deltaTime;
         int fpsSpecial = (int)fps;
-        _text.text =  $"FPS : {fpsSpecial.ToString()}";
-        
+        if(fpsSpecial > 99)
+        {
+            _text.text = $"FPS : {fpsSpecial.ToString()}";
+
+        }
+        _text.text = $"FPS : 0{fpsSpecial.ToString()}";
+
+
     }
 }
