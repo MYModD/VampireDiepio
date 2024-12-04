@@ -7,7 +7,7 @@ using UnityEngine;
 /// <typeparam name="T">継承先がコンポーネント</typeparam>
 /// <typeparam name="TComponents">継承先で使う方が構造体</typeparam>
 public abstract class ComponentManagerBase<T, TComponents> : Diepio.Singleton<T>
-    where T : Component 
+    where T : Component
     where TComponents : struct 
 {
     // GameObject の InstanceID をキーとしたコンポーネント情報の辞書
