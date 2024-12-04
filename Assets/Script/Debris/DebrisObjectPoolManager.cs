@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class DebrisObjectPoolManager : ObjectPoolBase<PoolableDebris>
 {
-    public Transform _setPostion;
+    [SerializeField] private Transform _setPostion;
+    
 
     protected override PoolableDebris Create()
     {
@@ -14,11 +15,14 @@ public class DebrisObjectPoolManager : ObjectPoolBase<PoolableDebris>
         return poolableDebris;
     }
 
+
+
     protected override void Awake()
     {
         base.Awake();
 
-        for (int i = 0; i < 30; i++)
+        // テスト用
+        for (int i = 0; i < _defaultCapacity; i++)
         {
             var hoge = ObjectPool.Get();
             hoge.gameObject.transform.position = Random.insideUnitCircle * 10 * _setPostion.position;

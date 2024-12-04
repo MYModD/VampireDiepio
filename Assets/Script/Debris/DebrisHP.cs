@@ -10,10 +10,10 @@ public class DebrisHP : MonoBehaviour
     public int _hp  = 10;
 
 
-    public void DegreeHP(int degreeValue)
+    public void DecreaseHP(int decreaseValue)
     {
         
-        _hp -= degreeValue;
+        _hp -= decreaseValue;
         if (_hp <= 0)
         {
             gameObject.SetActive(false);

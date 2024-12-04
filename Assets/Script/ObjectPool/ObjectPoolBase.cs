@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -18,10 +16,10 @@ public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour,
 
 
     [Header("プールの初期生成数")]
-    [SerializeField] private int _defaultCapacity = 32;
+    [SerializeField] protected private int _defaultCapacity = 32;
 
     [Header("プールの最大値")]
-    [SerializeField] private int _maxSize = 100;
+    [SerializeField] protected private int _maxSize = 100;
 
     private const bool COLLECTION_CHECK = true; // コレクションチェックのフラグ。特に意味がないのでtrue
 

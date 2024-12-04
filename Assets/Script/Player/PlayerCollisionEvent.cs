@@ -37,7 +37,7 @@ public class PlayerCollisionEvent : CollisionEventBase
 
             //‚±‚±’¼‚·
             debris.debrisMove.BouncedPlayer(_playerMove._currentVelocity);
-            debris.debrisHP.DegreeHP(10);
+            debris.debrisHP.DecreaseHP(10);
 
 
         }

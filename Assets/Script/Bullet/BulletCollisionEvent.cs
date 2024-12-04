@@ -21,7 +21,7 @@ public class BulletCollisionEvent : CollisionEventBase
             // HPテスト用なので後で変更 デブリの反動処理は必要ない
             DebrisComponents debris = DebrisComponentManager.Instance.GetComponents(collision.gameObject);
 
-            debris.debrisHP.DegreeHP(10);
+            debris.debrisHP.DecreaseHP(10);
         }
         else if (collision.gameObject.CompareTag(_enemyTag))
         {
