@@ -18,12 +18,10 @@ public class BulletCollisionEvent : CollisionEventBase
     {
         if (collision.gameObject.CompareTag(_debrisTag)){
 
-            DebrisComponents debris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
             // HPテスト用なので後で変更 デブリの反動処理は必要ない
+            DebrisComponents debris = DebrisComponentManager.Instance.GetComponents(collision.gameObject);
 
             debris.debrisHP.DegreeHP(10);
-            
-
         }
         else if (collision.gameObject.CompareTag(_enemyTag))
         {

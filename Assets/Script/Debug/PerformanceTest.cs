@@ -1,64 +1,111 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Debug = UnityEngine.Debug;
 
 public class PerformanceTest : MonoBehaviour
 {
-    private Dictionary<int, SimpleShapeCollider2D> healthDict = new Dictionary<int, SimpleShapeCollider2D>();
-    private GameObject[] testObjects;
-    private int testCount = 1000000; // テスト回数
+    private BulletComponentManager _componentManager;
+    private List<GameObject> _testObjects;
+    private const int TEST_COUNT = 500;
+    private const int ITERATION_COUNT = 100;
 
-    void Start()
+    private void Start()
     {
-        // テストオブジェクトを生成
-        testObjects = new GameObject[100]; // テストする要素数
-        for (int i = 0; i < testObjects.Length; i++)
+        _componentManager = BulletComponentManager.Instance;
+        _testObjects = new List<GameObject>();
+
+        // テスト用オブジェクトの作成と登録
+        for (int i = 0; i < TEST_COUNT; i++)
         {
-            var obj = new GameObject($"Test_{i}");
-            var health = obj.AddComponent<SimpleShapeCollider2D>();
-            healthDict[obj.GetInstanceID()] = health;
-            testObjects[i] = obj;
+            var obj = new GameObject($"TestBullet_{i}");
+            obj.AddComponent<BulletMove>();
+            _componentManager.RegisterComponents(obj);
+            _testObjects.Add(obj);
         }
 
-        StartCoroutine(RunTest());
+        // 各テストを実行
+        TestGetComponent();
+        TestComponentManager();
+        TestFindObjectsByType();
     }
 
-    IEnumerator RunTest()
+    private void TestGetComponent()
     {
-        yield return new WaitForSeconds(5); // 初期化待ち
-        Debug.Log("Start Test".Warning());
+        var stopwatch = new Stopwatch();
+        double totalMs = 0;
 
-        // Dictionary検索のテスト
-        var dictStartTime = Time.realtimeSinceStartup;
-        for (int i = 0; i < testCount; i++)
+        for (int iteration = 0; iteration < ITERATION_COUNT; iteration++)
         {
-            var obj = testObjects[i % testObjects.Length];
-            var health = healthDict[obj.GetInstanceID()];
+            stopwatch.Reset();
+            stopwatch.Start();
+
+            foreach (var obj in _testObjects)
+            {
+                var component = obj.GetComponent<BulletMove>();
+            }
+
+            stopwatch.Stop();
+            totalMs += stopwatch.Elapsed.TotalMilliseconds;
         }
-        var dictTime = Time.realtimeSinceStartup - dictStartTime;
 
-        // GetComponentのテスト
-        var getCompStartTime = Time.realtimeSinceStartup;
-        for (int i = 0; i < testCount; i++)
-        {
-            var obj = testObjects[i % testObjects.Length];
-            var health = obj.GetComponent<SimpleShapeCollider2D>();
-        }
-        var getCompTime = Time.realtimeSinceStartup - getCompStartTime;
-
-        Debug.Log($"Dictionary Time: {dictTime}s");
-        Debug.Log($"GetComponent Time: {getCompTime}s");
-
-        
-
-
-        
-        
+        Debug.Log($"GetComponent 平均実行時間: {totalMs / ITERATION_COUNT}ms (対象: {TEST_COUNT}個)");
     }
 
+    private void TestComponentManager()
+    {
+        var stopwatch = new Stopwatch();
+        double totalMs = 0;
 
+        for (int iteration = 0; iteration < ITERATION_COUNT; iteration++)
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
 
-    
+            foreach (var obj in _testObjects)
+            {
+                var components = _componentManager.GetComponents(obj);
+            }
+
+            stopwatch.Stop();
+            totalMs += stopwatch.Elapsed.TotalMilliseconds;
+        }
+
+        Debug.Log($"ComponentManager 平均実行時間: {totalMs / ITERATION_COUNT}ms (対象: {TEST_COUNT}個)");
+    }
+
+    private void TestFindObjectsByType()
+    {
+        var stopwatch = new Stopwatch();
+        double totalMs = 0;
+
+        for (int iteration = 0; iteration < ITERATION_COUNT; iteration++)
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+
+            var objects = Object.FindObjectsByType<BulletMove>(FindObjectsSortMode.None);
+
+            stopwatch.Stop();
+            totalMs += stopwatch.Elapsed.TotalMilliseconds;
+        }
+
+        Debug.Log($"FindObjectsByType 平均実行時間: {totalMs / ITERATION_COUNT}ms (対象: {TEST_COUNT}個)");
+    }
+
+    private void OnDestroy()
+    {
+        // テストオブジェクトの削除
+        foreach (var obj in _testObjects)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+        _testObjects.Clear();
+    }
+
 }

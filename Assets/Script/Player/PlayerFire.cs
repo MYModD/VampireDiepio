@@ -48,9 +48,13 @@ public class PlayerFire : MonoBehaviour
         bulletObject.transform.position = _firePostion.position;
         Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
         force.Normalize();
-        // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
-        bulletObject.GetComponent<BulletMove>().AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
 
+
+        // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
+        BulletComponents bulletComponents = BulletComponentManager.Instance.GetComponents(bulletObject);
+
+        bulletComponents.bulletMove.AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
+        
 
         // プレイヤーに反動を与える
         _playerMove.AddRecoilForce(force);

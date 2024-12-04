@@ -6,14 +6,7 @@ using UnityEngine;
 public class DebugGizzle : MonoBehaviour
 {
     
-    void Awake()
-    {
-        
-    }
 
     
-    void Update()
-    {
-        transform.position = Random.insideUnitCircle * transform.forward;
-    }
+  
 }

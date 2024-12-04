@@ -32,7 +32,7 @@ public class PlayerCollisionEvent : CollisionEventBase
             if (DebrisComponentManager.Instance == null) Debug.LogError("Œ´ˆö‚±‚±");   
 
 
-            DebrisComponents debris = DebrisComponentManager.Instance.GetDebrisComponents(collision.gameObject);
+            DebrisComponents debris = DebrisComponentManager.Instance.GetComponents(collision.gameObject);
             
 
             //‚±‚±’¼‚·
