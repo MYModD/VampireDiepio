@@ -4,58 +4,58 @@ using UnityEngine;
 namespace Diepio
 {
     public abstract class Singleton<T> : MonoBehaviour where T : Component
-{
-    private static T instance;
-    private static bool isQuitting;
-
-    public static T Instance
     {
-        get
-        {
-            if (isQuitting)
-            {
-                return null;  // OnDestroy,OndiseableéûÇ…êVÇµÇ≠çÏÇÁÇÍÇÈÇÃÇñhÇÆÇΩÇﬂ
-            }
+        private static T instance;
+        private static bool isQuitting;
 
-            if (instance == null)
+        public static T Instance
+        {
+            get
             {
-                instance = FindObjectOfType<T>();
+                if (isQuitting)
+                {
+                    return null;  // OnDestroy,OndiseableéûÇ…êVÇµÇ≠çÏÇÁÇÍÇÈÇÃÇñhÇÆÇΩÇﬂ
+                }
+
                 if (instance == null)
                 {
-                    GameObject go = new GameObject(typeof(T).Name);
-                    instance = go.AddComponent<T>();
+                    instance = FindObjectOfType<T>();
+                    if (instance == null)
+                    {
+                        GameObject go = new GameObject(typeof(T).Name);
+                        instance = go.AddComponent<T>();
+                    }
                 }
+                return instance;
             }
-            return instance;
         }
-    }
 
-    protected virtual void Awake()
-    {
-        if (instance == null)
+        protected virtual void Awake()
         {
-            instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            if (instance == null)
+            {
+                instance = this as T;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+            }
         }
-        else if (instance != this)
+
+        protected virtual void OnDestroy()
         {
-            Destroy(gameObject);
-        }
-    }
+            if (instance == this)
+            {
+                instance = null;
+            }
 
-    protected virtual void OnDestroy()
-    {
-        if (instance == this)
+        }
+
+        protected virtual void OnApplicationQuit()
         {
-            instance = null;
+            isQuitting = true;
+
         }
-
     }
-
-    protected virtual void OnApplicationQuit()
-    {
-        isQuitting = true;
-
-    }
-}
 }

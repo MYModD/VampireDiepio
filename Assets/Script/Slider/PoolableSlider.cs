@@ -15,6 +15,6 @@ public class PoolableSlider : MonoBehaviour, IPooledObject<PoolableSlider>
 
     public void ReturnToPool()
     {
-        ObjectPool?.Release(this);
+        ObjectPool.Release(this);
     }
 }
