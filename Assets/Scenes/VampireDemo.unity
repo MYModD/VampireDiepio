@@ -321,7 +321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &408311170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +490,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4833820781831561618, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
   m_PrefabInstance: {fileID: 2459851794966157786}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &749086449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8385129779563858631, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+  m_PrefabInstance: {fileID: 2459851794966157786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &829820861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1227,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688034211}
   m_CullTransparentMesh: 1
+--- !u!114 &1722639867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8960619557488954884, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+  m_PrefabInstance: {fileID: 2459851794966157786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2004412194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,6 +1740,42 @@ PrefabInstance:
     - target: {fileID: 4833820781831561618, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898631876950478279, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: _imagesFill
+      value: 
+      objectReference: {fileID: 1722639867}
+    - target: {fileID: 4898631876950478279, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: _fillEndColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898631876950478279, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: _imageBackground
+      value: 
+      objectReference: {fileID: 749086449}
+    - target: {fileID: 4898631876950478279, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: _backGroundEndColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898631876950478279, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: _backGroundStartColor.a
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960619557488954884, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960619557488954884, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960619557488954884, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960619557488954884, guid: 5777e93786dfac34baa249690e855c6e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.28627425
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

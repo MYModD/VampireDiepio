@@ -10,7 +10,8 @@ public class PoolableSlider : MonoBehaviour, IPooledObject<PoolableSlider>
 
     public void Initialize()
     {
-        // Initialization code here
+        // ここの初期化する値を設定する
+        // ImagesのAlpha値 sliderの値 Postioinは大丈夫
     }
 
     public void ReturnToPool()
