@@ -9,7 +9,7 @@ public struct DebrisComponents
     public DebrisMove debrisMove;
 }
 
-public class DebrisComponentManager : ComponentManagerBase<DebrisComponentManager, DebrisComponents>
+public class DebrisComponentManager : BaseComponentManager<DebrisComponentManager, DebrisComponents>
 {
    
 

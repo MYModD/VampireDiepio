@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Šî’ê‚Æ‚È‚é’ŠÛƒNƒ‰ƒX
-public abstract class CollisionEventBase : MonoBehaviour,ICollisionEvents
+public abstract class BaseCollisionEvent : MonoBehaviour,ICollisionEvents
 {
     protected private SimpleShapeCollider2D _shapeCollider;
 

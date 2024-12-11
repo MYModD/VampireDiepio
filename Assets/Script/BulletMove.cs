@@ -32,10 +32,17 @@ public class BulletMove : MonoBehaviour
         _currentVelocity = Vector2.Lerp(_currentVelocity, Vector2.zero, _deceleration * Time.fixedDeltaTime);
 
         transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
-        
-       
+          
 
     }
+    /// <summary>
+    /// ë¨ìxÇÃèâä˙âª
+    /// </summary>
+    public void InitialVelocity()
+    {
+        _currentVelocity = Vector2.zero;
+    }
+
     public void AddForce(Vector2 force)
     {
         _currentVelocity += force;
@@ -46,6 +53,9 @@ public class BulletMove : MonoBehaviour
         _timerValue = _timer;
     }
 
+
+  
    
+
 
 }

@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyCollisionEvent : CollisionEventBase
+public class EnemyCollisionEvent : BaseCollisionEvent
 {
+    private EnemyHP _enemyHP;
+    protected override void Awake()
+    {
+        base.Awake();
+        _enemyHP = GetComponent<EnemyHP>();
+    }
 
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DebrisObjectPoolManager : ObjectPoolBase<PoolableDebris>
+public class DebrisObjectPoolManager : BaseObjectPool<PoolableDebris>
 {
     [SerializeField] private Transform _setPostion;
     

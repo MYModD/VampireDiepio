@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SliderObjectPoolManager : ObjectPoolBase<PoolableSlider>
+public class SliderObjectPoolManager : BaseObjectPool<PoolableSlider>
 {
     [Header("親オブジェクト選択")]
     [SerializeField] private Transform _pearentObjct;

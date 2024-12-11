@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
-    
-    void Awake()
-    {
-        
-    }
+    [SerializeField] private float _speed;
+    [SerializeField] private Transform _playerTransform;
 
-    
-    void Update()
+
+
+    private void Update()
     {
-        
+        Vector3 vectol = _playerTransform.position - this.transform.position;
+        vectol.Normalize();
+        this.transform.position += vectol * _speed * Time.deltaTime;
     }
 }

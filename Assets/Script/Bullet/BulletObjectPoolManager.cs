@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class BulletObjectPoolManager : ObjectPoolBase<PoolableBullet>
+public class BulletObjectPoolManager : BaseObjectPool<PoolableBullet>
 {
     protected override PoolableBullet Create()
     {

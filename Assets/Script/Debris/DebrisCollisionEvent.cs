@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using UnityEngine;
 
 
-public class DebrisCollisionEvent : CollisionEventBase
+public class DebrisCollisionEvent : BaseCollisionEvent
 {
 
     [SerializeField, Tag] private string _debrisTag;

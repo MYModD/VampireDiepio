@@ -19,14 +19,16 @@ public class PoolableBullet : MonoBehaviour, IPooledObject<PoolableBullet>
     /// </summary>
     public void Initialize()
     {
-        _bulletMove._currentVelocity = Vector2.zero;   
+        _bulletMove.InitialVelocity();
+
     }
 
-
-    //返却処理
+    /// <summary>
+    /// プールに返却するときの処理、返却の後に初期化処理を行う
+    /// </summary>
     public void ReturnToPool()
     {
-        ObjectPool.Release(this);
         Initialize();
+        ObjectPool.Release(this);
     }
 }

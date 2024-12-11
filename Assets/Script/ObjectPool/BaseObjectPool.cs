@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 
-public abstract class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour, IPooledObject<T>
+public abstract class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPooledObject<T>
 {
 
     [Header("プールされるオブジェクト")]

@@ -688,9 +688,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f528c9c33958e5498ce8f17a72ece59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputAcceleration: 5
+  _inputAcceleration: 2
   _inputDeceleration: 2
-  _inputMaxSpeed: 10
+  _inputMaxSpeed: 5
   _recoilForceMultiplier: 5
   _recoilDeceleration: 2
   _recoilMaxSpeed: 18.96
@@ -1205,6 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e729c8012f6a53740aed8a9327a65da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerTransform: {fileID: 0}
 --- !u!114 &1610293306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,6 +1230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1faeacb0943eb42b5acc8ce69fe1dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 0
+  _initialHP: 0
 --- !u!1 &1688034211
 GameObject:
   m_ObjectHideFlags: 0

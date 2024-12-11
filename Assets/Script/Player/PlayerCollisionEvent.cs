@@ -1,7 +1,7 @@
 using UnityEngine;
 using NaughtyAttributes;
 
-public class PlayerCollisionEvent : CollisionEventBase
+public class PlayerCollisionEvent : BaseCollisionEvent
 {
     [SerializeField,Tag] private string _debrisTag;
     [SerializeField,Tag] private string _enemyTag;

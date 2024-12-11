@@ -1,19 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-
-public class PoolableEnemy : MonoBehaviour
+public class PoolableEnemy : MonoBehaviour, IPooledObject<PoolableEnemy>
 {
-    
-    void Awake()
+    public IObjectPool<PoolableEnemy> ObjectPool { private get; set; }
+
+    private EnemyHP _enemyHP;
+
+    private void Awake()
     {
-        
+        _enemyHP = GetComponent<EnemyHP>();
+        Application.targetFrameRate = 1000;
     }
 
-    
-    void Update()
+    public void Initialize()
     {
-        
+        _enemyHP.InitializeHP();
+    }
+
+
+    /// <summary>
+    /// プールに返却するときの処理、返却の前に初期化
+    /// </summary>
+    public void ReturnToPool()
+    {
+        Initialize();
+        ObjectPool.Release(this);
     }
 }

@@ -38,8 +38,8 @@ public class CollisionManager2D : Diepio.Singleton<CollisionManager2D>
 
     protected override void OnApplicationQuit()
     {
-
         base.OnApplicationQuit();
+
         // アプリケーション終了時にクリーンアップを確実に行う
         if (_colliders != null)
         {

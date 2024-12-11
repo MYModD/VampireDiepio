@@ -6,7 +6,7 @@ public struct BulletComponents
     public BulletMove bulletMove;
 }
 
-public class BulletComponentManager : ComponentManagerBase<BulletComponentManager, BulletComponents>
+public class BulletComponentManager : BaseComponentManager<BulletComponentManager, BulletComponents>
 {
     private static Dictionary<int, BulletComponents> _bulletComponents = new Dictionary<int, BulletComponents>();
 
