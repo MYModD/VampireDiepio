@@ -29,10 +29,10 @@ public class PlayerCollisionEvent : BaseCollisionEvent
             _playerHP.OnDebirsDamage();
 
 
-            if (DebrisComponentManager.Instance == null) Debug.LogError("Œ´ˆö‚±‚±");   
+            if (DebrisComponentsManager.Instance == null) Debug.LogError("Œ´ˆö‚±‚±");   
 
 
-            DebrisComponents debris = DebrisComponentManager.Instance.GetComponents(collision.gameObject);
+            DebrisComponents debris = DebrisComponentsManager.Instance.GetComponents(collision.gameObject);
             
 
             //‚±‚±’¼‚·

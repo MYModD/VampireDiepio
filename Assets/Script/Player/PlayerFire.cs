@@ -51,7 +51,7 @@ public class PlayerFire : MonoBehaviour
 
 
         // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
-        BulletComponents bulletComponents = BulletComponentManager.Instance.GetComponents(bulletObject);
+        BulletComponents bulletComponents = BulletComponentsManager.Instance.GetComponents(bulletObject);
 
         bulletComponents.bulletMove.AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
         

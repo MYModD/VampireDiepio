@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyHP : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
     [Header("Enemy‚ÌHP")]
     [SerializeField] private int _hp;
@@ -26,6 +26,8 @@ public class EnemyHP : MonoBehaviour
         _hp -= damageValue;
         if (_hp <= 0)
         {
+
+            //‚Æ‚è‚Ü”j‰ó
             Destroy(gameObject);
         }
     }

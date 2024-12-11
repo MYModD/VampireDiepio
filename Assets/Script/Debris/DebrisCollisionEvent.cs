@@ -12,7 +12,7 @@ public class DebrisCollisionEvent : BaseCollisionEvent
         if (collision.gameObject.CompareTag(_debrisTag))
         {
             // コンポーネントたちを取得
-            DebrisComponents hitDebris = DebrisComponentManager.Instance.GetComponents(collision.gameObject);
+            DebrisComponents hitDebris = DebrisComponentsManager.Instance.GetComponents(collision.gameObject);
 
             // デブリ同士だとお互いに処理を行うので、速度が速い方が処理する
             if (_debrisMove._currentVelocity.magnitude > hitDebris.debrisMove._currentVelocity.magnitude)
@@ -32,7 +32,7 @@ public class DebrisCollisionEvent : BaseCollisionEvent
     {
         if (collision.gameObject.CompareTag(_debrisTag))
         {
-            DebrisComponents hitDebris = DebrisComponentManager.Instance.GetComponents(collision.gameObject);
+            DebrisComponents hitDebris = DebrisComponentsManager.Instance.GetComponents(collision.gameObject);
 
             // 両方のデブリで重なり解消処理を実行
             _debrisMove.ResolvePenetration(collision.transform, hitDebris.debrisMove._currentVelocity);

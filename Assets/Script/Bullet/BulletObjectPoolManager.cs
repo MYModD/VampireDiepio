@@ -8,7 +8,7 @@ public class BulletObjectPoolManager : BaseObjectPool<PoolableBullet>
     protected override PoolableBullet Create()
     {
         PoolableBullet poolableBullet =  base.Create();
-        BulletComponentManager.Instance.RegisterComponents(poolableBullet.gameObject);
+        BulletComponentsManager.Instance.RegisterComponents(poolableBullet.gameObject);
         return poolableBullet;
     }
 

@@ -6,11 +6,8 @@ public struct BulletComponents
     public BulletMove bulletMove;
 }
 
-public class BulletComponentManager : BaseComponentManager<BulletComponentManager, BulletComponents>
+public class BulletComponentsManager : BaseComponentsManager<BulletComponentsManager, BulletComponents>
 {
-    private static Dictionary<int, BulletComponents> _bulletComponents = new Dictionary<int, BulletComponents>();
-
-
     protected override BulletComponents CreateComponents(GameObject obj)
     {
         BulletComponents components = new BulletComponents();

@@ -11,7 +11,7 @@ public class DebrisObjectPoolManager : BaseObjectPool<PoolableDebris>
     protected override PoolableDebris Create()
     {
         PoolableDebris poolableDebris = base.Create();
-        DebrisComponentManager.Instance.RegisterComponents(poolableDebris.gameObject);
+        DebrisComponentsManager.Instance.RegisterComponents(poolableDebris.gameObject);
         return poolableDebris;
     }
 

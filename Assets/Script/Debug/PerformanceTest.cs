@@ -7,14 +7,14 @@ using Debug = UnityEngine.Debug;
 
 public class PerformanceTest : MonoBehaviour
 {
-    private BulletComponentManager _componentManager;
+    private BulletComponentsManager _componentManager;
     private List<GameObject> _testObjects;
     private const int TEST_COUNT = 500;
     private const int ITERATION_COUNT = 100;
 
     private void Start()
     {
-        _componentManager = BulletComponentManager.Instance;
+        _componentManager = BulletComponentsManager.Instance;
         _testObjects = new List<GameObject>();
 
         // テスト用オブジェクトの作成と登録
