@@ -6,17 +6,12 @@ namespace Diepio
     public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
         private static T instance;
-        private static bool isQuitting;
 
         public static T Instance
         {
             get
             {
-                if (isQuitting)
-                {
-                    return null;  // OnDestroy,OndiseableéûÇ…êVÇµÇ≠çÏÇÁÇÍÇÈÇÃÇñhÇÆÇΩÇﬂ
-                }
-
+                
                 if (instance == null)
                 {
                     instance = FindObjectOfType<T>();
@@ -52,10 +47,5 @@ namespace Diepio
 
         }
 
-        protected virtual void OnApplicationQuit()
-        {
-            isQuitting = true;
-
-        }
     }
 }
