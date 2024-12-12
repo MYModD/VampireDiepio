@@ -12,7 +12,6 @@ public class PoolableEnemy : MonoBehaviour, IPooledObject<PoolableEnemy>
     private void Awake()
     {
         _enemyHP = GetComponent<EnemyHealth>();
-        Application.targetFrameRate = 1000;
     }
 
     public void Initialize()
