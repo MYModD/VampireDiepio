@@ -42,7 +42,7 @@ public class PlayerFire : MonoBehaviour
     private void FireBullet()
     {
 
-        // 生成しているので後でオブジェクトプールに変更
+        
         // 弾を生成して発射
         GameObject bulletObject = _bulletObjectPoolManager.GetBulletObject();
         bulletObject.transform.position = _firePostion.position;

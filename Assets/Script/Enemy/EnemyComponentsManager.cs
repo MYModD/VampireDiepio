@@ -15,6 +15,7 @@ public class EnemyComponentsManager : BaseComponentsManager<EnemyComponentsManag
     {
         EnemyComponents components = new EnemyComponents();
         components.enemyMove = obj.GetComponent<EnemyMove>();
+        components.enemyHealth = obj.GetComponent<EnemyHealth>();
         return components;
     }
 }

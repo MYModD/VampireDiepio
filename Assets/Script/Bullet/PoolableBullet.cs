@@ -20,6 +20,7 @@ public class PoolableBullet : MonoBehaviour, IPooledObject<PoolableBullet>
     public void Initialize()
     {
         _bulletMove.InitialVelocity();
+        _bulletMove.InitialTimer();
 
     }
 

@@ -35,6 +35,14 @@ public class BulletMove : MonoBehaviour
           
 
     }
+    
+
+    public void AddForce(Vector2 force)
+    {
+        _currentVelocity += force;
+
+    }
+
     /// <summary>
     /// 速度の初期化
     /// </summary>
@@ -43,12 +51,10 @@ public class BulletMove : MonoBehaviour
         _currentVelocity = Vector2.zero;
     }
 
-    public void AddForce(Vector2 force)
-    {
-        _currentVelocity += force;
-
-    }
-    private void OnEnable()
+    /// <summary>
+    /// タイマーの初期化
+    /// </summary>
+    public void InitialTimer()
     {
         _timerValue = _timer;
     }
