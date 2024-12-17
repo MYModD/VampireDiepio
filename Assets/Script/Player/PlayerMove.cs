@@ -1,9 +1,10 @@
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
-    [Header("入力の加速度"),Range(0,10f)]
+    [Header("入力の加速度"), Range(0, 10f)]
     [SerializeField] private float _inputAcceleration = 5f;
 
     [Header("入力の減速度"), Range(0, 10f)]
@@ -31,6 +32,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Range(0, 1f)] private float _enemyDeceleration = 0.5f;
 
 
+    [SerializeField] private DetaPlayerMove _playerMoveData; // ScriptableObjectへの参照
+
+
     [SerializeField] private TextMeshProUGUI _debugText; // デバッグ用テキスト
 
 
@@ -51,6 +55,9 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         _playerFire = GetComponent<PlayerFire>();
+
+
+
     }
 
 
@@ -135,6 +142,48 @@ public class PlayerMove : MonoBehaviour
         _inputDirection = context.ReadValue<Vector2>();
     }
 
+
+
+#if UNITY_EDITOR
+    [Button]
+    private void DetaSaveScriptableObject()
+    {
+
+        // ScriptableObjectに値を保存
+        _playerMoveData.InputAcceleration = _inputAcceleration;
+        _playerMoveData.InputDeceleration = _inputDeceleration;
+        _playerMoveData.InputMaxSpeed = _inputMaxSpeed;
+        _playerMoveData.RecoilForceMultiplier = _recoilForceMultiplier;
+        _playerMoveData.RecoilDeceleration = _recoilDeceleration;
+        _playerMoveData.RecoilMaxSpeed = _recoilMaxSpeed;
+        _playerMoveData.VelocityMaxSpeed = _velocityMaxSpeed;
+        _playerMoveData.DebrisDeceleration = _debrisDeceleration;
+        _playerMoveData.EnemyDeceleration = _enemyDeceleration;
+
+        // 変更を保存
+        UnityEditor.EditorUtility.SetDirty(_playerMoveData);
+        UnityEditor.AssetDatabase.SaveAssets();
+
+        Debug.Log("設定を保存しました");
+    }
+
+    [SerializeField]    
+    [Button]
+    private void DetaLoadScriptableObject()
+    {
+        // ScriptableObjectから値を読み込む
+        _inputAcceleration = _playerMoveData.InputAcceleration;
+        _inputDeceleration = _playerMoveData.InputDeceleration;
+        _inputMaxSpeed = _playerMoveData.InputMaxSpeed;
+        _recoilForceMultiplier = _playerMoveData.RecoilForceMultiplier;
+        _recoilDeceleration = _playerMoveData.RecoilDeceleration;
+        _recoilMaxSpeed = _playerMoveData.RecoilMaxSpeed;
+        _velocityMaxSpeed = _playerMoveData.VelocityMaxSpeed;
+        _debrisDeceleration = _playerMoveData.DebrisDeceleration;
+        _enemyDeceleration = _playerMoveData.EnemyDeceleration;
+
+    }
+#endif
 
     /// <summary>
     /// Debug用のGizmos描画

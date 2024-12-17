@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyObjectPoolManager : BaseObjectPool<PoolableEnemy>
 {
+
+
     protected override PoolableEnemy Create()
     {
         PoolableEnemy pooleableEnemy = base.Create();

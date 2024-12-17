@@ -1,8 +1,5 @@
 using Diepio;
-using NaughtyAttributes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,19 +8,34 @@ using UnityEngine;
 public class ScoreManager : Singleton<ScoreManager>
 {
     [SerializeField] private int _score;
-    [SerializeField, Tag] private string _enemyTag;
-    [SerializeField, Tag] private int _enemyScore;
-    [SerializeField, Tag] private string _debriTag;
-    [SerializeField, Tag] private int _debriScore;
+    [SerializeField] private int _enemyAddScore;
+    [SerializeField] private int _debriAddScore;
 
+    private const string _enemyTag = "Enemy";
+    private const string _debriTag = "Debri";
 
     // イベントシステム
     public Action<int> OnScoreChanged;
 
+    [SerializeField]private ScoreData _scoreData;
+
+
+    private const string SCOREDETA = "Deta/ScoreData";  // Resourcesフォルダ内のDataフォルダにある場合
+
     protected override void Awake()
     {
         base.Awake();
-
+        _scoreData = Resources.Load<ScoreData>(SCOREDETA);
+        if (_scoreData == null)
+        {
+            Debug.LogError("ScoreDataの読み込みに失敗しました");
+        }
+        else
+        {
+            Debug.Log("ScoreDataの読み込みに成功しました");
+        }
+        _enemyAddScore = _scoreData.enemyAddScore;
+        _debriAddScore = _scoreData.debriAddScore;
     }
 
     public void AddScore(string objectTag)
@@ -32,12 +44,12 @@ public class ScoreManager : Singleton<ScoreManager>
 
         if (objectTag == _enemyTag)
         {
-            _score += _enemyScore;
+            _score += _enemyAddScore;
             OnScoreChanged.Invoke(_score);
         }
         else if (objectTag == _debriTag)
         {
-            _score += _debriScore;
+            _score += _debriAddScore;
             OnScoreChanged.Invoke(_score);
         }
     }
