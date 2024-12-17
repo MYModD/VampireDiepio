@@ -4,6 +4,7 @@ using UnityEngine;
 public struct BulletComponents
 {
     public BulletMove bulletMove;
+    public BulletCollisionEvent bulletCollisionEvent;
 }
 
 public class BulletComponentsManager : BaseComponentsManager<BulletComponentsManager, BulletComponents>
@@ -12,6 +13,7 @@ public class BulletComponentsManager : BaseComponentsManager<BulletComponentsMan
     {
         BulletComponents components = new BulletComponents();
         components.bulletMove = obj.GetComponent<BulletMove>();
+        components.bulletCollisionEvent = obj.GetComponent<BulletCollisionEvent>();
         return components;
     }
 }

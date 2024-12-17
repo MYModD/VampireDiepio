@@ -3,25 +3,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
-    [Header("入力の加速度")]
+    [Header("入力の加速度"),Range(0,10f)]
     [SerializeField] private float _inputAcceleration = 5f;
 
-    [Header("入力の減速度")]
+    [Header("入力の減速度"), Range(0, 10f)]
     [SerializeField] private float _inputDeceleration = 2f;
 
-    [Header("入力の最高速度")]
+    [Header("入力の最高速度"), Range(0, 20f)]
     [SerializeField] private float _inputMaxSpeed = 10f;
 
-    [Header("反動の強さ")]
+    [Header("反動の強さ"), Range(0, 10f)]
     [SerializeField] private float _recoilForceMultiplier = 5f;
 
-    [Header("反動の減衰率")]
+    [Header("反動の減衰率"), Range(0, 10f)]
     [SerializeField] private float _recoilDeceleration = 2f;
 
-    [Header("反動の最高速度")]
+    [Header("反動の最高速度"), Range(0, 20f)]
     [SerializeField] private float _recoilMaxSpeed = 10f;
 
-    [Header("全体の最高速度")]
+    [Header("全体の最高速度"), Range(0, 20f)]
     [SerializeField] private float _velocityMaxSpeed = 10f;
 
     [Header("デブリ衝突時の減衰率")]
@@ -94,6 +94,9 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// デブリに当たった時の速度減少処理
+    /// </summary>
     public void ReduceVelocityOnDebrisHit()
     {
         // 全体的に減衰させる
@@ -102,7 +105,9 @@ public class PlayerMove : MonoBehaviour
         _currentRecoilVelocity *= _debrisDeceleration; // 反動速度を減少
     }
 
-
+    /// <summary>
+    /// 敵に当たった時の速度減少処理
+    /// </summary>
     public void ReduceVelocityOnEnemyHit()
     {
         _currentInputVelocity *= _debrisDeceleration;  // 入力速度を減少
@@ -130,6 +135,10 @@ public class PlayerMove : MonoBehaviour
         _inputDirection = context.ReadValue<Vector2>();
     }
 
+
+    /// <summary>
+    /// Debug用のGizmos描画
+    /// </summary>
     private void OnDrawGizmos()
     {
         // Gizmosを使用してベクトルを可視化

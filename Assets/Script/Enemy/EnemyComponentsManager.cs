@@ -6,7 +6,7 @@ using UnityEngine;
 public struct EnemyComponents
 {
     public EnemyMove enemyMove;
-    public EnemyHealth enemyHealth;
+    public EnemyHP enemyHealth;
 }
 
 public class EnemyComponentsManager : BaseComponentsManager<EnemyComponentsManager, EnemyComponents>
@@ -15,7 +15,7 @@ public class EnemyComponentsManager : BaseComponentsManager<EnemyComponentsManag
     {
         EnemyComponents components = new EnemyComponents();
         components.enemyMove = obj.GetComponent<EnemyMove>();
-        components.enemyHealth = obj.GetComponent<EnemyHealth>();
+        components.enemyHealth = obj.GetComponent<EnemyHP>();
         return components;
     }
 }

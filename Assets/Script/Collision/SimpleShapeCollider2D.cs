@@ -102,7 +102,7 @@ public class SimpleShapeCollider2D : MonoBehaviour
         Vector2 pos = transform.position;
         float halfSize = _size;
 
-        // 回転を考慮せず、垂直な四角形の頂点を計算
+        // 回転をなしの垂直な四角形の頂点を計算
         corners[0] = pos + new Vector2(-halfSize, halfSize);   // 左上
         corners[1] = pos + new Vector2(halfSize, halfSize);    // 右上
         corners[2] = pos + new Vector2(halfSize, -halfSize);   // 右下

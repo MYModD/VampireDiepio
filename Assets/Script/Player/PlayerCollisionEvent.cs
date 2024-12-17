@@ -29,9 +29,6 @@ public class PlayerCollisionEvent : BaseCollisionEvent
             _playerHP.OnDebirsDamage();
 
 
-            if (DebrisComponentsManager.Instance == null) Debug.LogError("Œ´ˆö‚±‚±");   
-
-
             DebrisComponents debris = DebrisComponentsManager.Instance.GetComponents(collision.gameObject);
             
 
@@ -61,11 +58,11 @@ public class PlayerCollisionEvent : BaseCollisionEvent
 
     public override void OnCustomCollisionStay(SimpleShapeCollider2D collision)
     {
-        // Implement collision stay logic here
+        
     }
 
     public override void OnCustomCollisionExit(SimpleShapeCollider2D collision)
     {
-        // Implement collision exit logic here
+       
     }
 }

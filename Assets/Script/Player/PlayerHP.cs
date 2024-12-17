@@ -11,14 +11,14 @@ public class PlayerHP : MonoBehaviour
 
     [Header("デブリ衝突ダメージ")]
     [SerializeField]
-    private int _hitDebrisDamage = 1;
+    private int _hitToDebrisDamage = 1;
 
     public void OnDebirsDamage()
     {
-        _hp -= _hitDebrisDamage;
+        _hp -= _hitToDebrisDamage;
         if (_hp <= 0)
         {
-            Debug.Log("GameOver".Warning());
+            Debug.Log("GameOver".BoldYellow());
         }
     }
 

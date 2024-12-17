@@ -160,7 +160,7 @@ public class CollisionManager2D : Diepio.Singleton<CollisionManager2D>
     }
 
     /// <summary>
-    /// 多角形同士の衝突判定（分離軸判定法を使用）
+    /// 多角形同士の衝突判定（分離軸判定法）
     /// </summary>
     private bool CheckPolygonCollision(Vector2[] vertsA, Vector2[] vertsB)
     {

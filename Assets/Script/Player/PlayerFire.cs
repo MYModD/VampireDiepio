@@ -3,15 +3,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerFire : MonoBehaviour
 {
+
+    [SerializeField, Header("攻撃力")] private int _attackPower = 10;
+
+    [SerializeField,Header("クールタイム")] private float _coolTime = 0.5f; 
+    [SerializeField,Header("反動の強さ")] private float _multiplyForce = 1f;
+
     [SerializeField] private Transform _firePostion;
     [SerializeField] private Transform _bulletParent;
 
-    [SerializeField] private float _coolTime = 0.5f; // 弾発射のクールダウンタイム
-    [SerializeField] private float _multiplyForce = 1f;
-
     [SerializeField] private BulletObjectPoolManager _bulletObjectPoolManager;
 
-    private float _coolTimeValue;
+    private float _coolTimeValue;   //クールタイム計算するための変数
     private bool _isFiring = false; // 長押しを判定するフラグ
 
     private PlayerMove _playerMove;
@@ -39,30 +42,6 @@ public class PlayerFire : MonoBehaviour
     }
 
 
-    private void FireBullet()
-    {
-
-        
-        // 弾を生成して発射
-        GameObject bulletObject = _bulletObjectPoolManager.GetBulletObject();
-        bulletObject.transform.position = _firePostion.position;
-        Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
-        force.Normalize();
-
-
-        // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
-        BulletComponents bulletComponents = BulletComponentsManager.Instance.GetComponents(bulletObject);
-
-        bulletComponents.bulletMove.AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
-        
-
-        // プレイヤーに反動を与える
-        _playerMove.AddRecoilForce(force);
-
-    }
-
-
-
     /// <summary>
     /// InputSytemのクリックイベント
     /// </summary>
@@ -80,6 +59,33 @@ public class PlayerFire : MonoBehaviour
             _isFiring = false; // 長押し解除時に発射を停止する
         }
     }
+
+
+    private void FireBullet()
+    {
+
+        
+        // 弾を生成して発射
+        GameObject bulletObject = _bulletObjectPoolManager.GetBulletObject();
+        bulletObject.transform.position = _firePostion.position;
+
+        // 方向を求めた後に正規化
+        Vector2 force = new Vector2(_firePostion.position.x - transform.position.x, _firePostion.position.y - transform.position.y);
+        force.Normalize();
+
+
+        // 速度を与える + プレイヤーのベクトルも加算  あとでなおす
+        BulletComponents bulletComponents = BulletComponentsManager.Instance.GetComponents(bulletObject);
+
+        bulletComponents.bulletMove.AddForce((force * _multiplyForce) + _playerMove._currentVelocity);
+        bulletComponents.bulletCollisionEvent.ChengeBulletAttackPower(_attackPower);
+
+        // プレイヤーに反動を与える
+        _playerMove.AddRecoilForce(force);
+
+    }
+
+
 
     
    

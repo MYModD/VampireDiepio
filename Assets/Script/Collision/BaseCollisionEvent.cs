@@ -13,6 +13,7 @@ public abstract class BaseCollisionEvent : MonoBehaviour,ICollisionEvents
             Debug.LogError($"SimpleShapeCollider2Dが{gameObject.name}に見つかりません");
             return;
         }
+        //シェイプコライダーが存在する場合イベント登録
         RegisterEvents();
     }
 
@@ -25,13 +26,12 @@ public abstract class BaseCollisionEvent : MonoBehaviour,ICollisionEvents
             Debug.LogError($"SimpleShapeCollider2Dが{gameObject.name}に見つかりません");
 
         }
-
-
     }
 
     protected virtual void OnDisable()
     {
-        //UnregisterEvents();
+        // Destroyしないためイベント解除必要なし
+        // UnregisterEvents();
     }
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyCollisionEvent : BaseCollisionEvent
 {
-    private EnemyHealth _enemyHP;
+    private EnemyHP _enemyHP;
 
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {

@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHP : MonoBehaviour
 {
     [Header("Enemy‚ÌHP")]
     [SerializeField] private int _hp;
 
     [Header("HPİ’è’l , ‰Šú‰»‚·‚éHP")]
     [SerializeField] private int _initialHP;
+
+    //[SerializeField] private ScoreManager _scoreManger;
+
+    private PoolableEnemy _poolableEnemy;
     void Awake()
     {
-        
+        _poolableEnemy = GetComponent<PoolableEnemy>();
+        // _scoreManger = GetComponent<ScoreManager>();
+
     }
 
     
@@ -27,8 +33,8 @@ public class EnemyHealth : MonoBehaviour
         if (_hp <= 0)
         {
 
-            //‚Æ‚è‚Ü”j‰ó
-            Destroy(gameObject);
+            ScoreManager.Instance.AddScore(gameObject.tag);
+            _poolableEnemy.ReturnToPool();
         }
     }
 

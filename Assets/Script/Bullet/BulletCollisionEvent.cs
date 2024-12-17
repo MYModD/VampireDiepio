@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using UnityEngine;
 
 
@@ -7,6 +8,7 @@ public class BulletCollisionEvent : BaseCollisionEvent
     [Header("UŒ‚—Í")]
     [SerializeField] private int _attackPower = 10;
 
+    [Header("“G,ƒfƒuƒŠ‚Ìƒ^ƒO")]
     [SerializeField, Tag] private string _enemyTag;
     [SerializeField, Tag] private string _debrisTag;
 
@@ -17,6 +19,8 @@ public class BulletCollisionEvent : BaseCollisionEvent
         base.Awake();
         _bulletMove = GetComponent<BulletMove>();
     }
+
+
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
         if (collision.gameObject.CompareTag(_debrisTag)){
@@ -31,16 +35,26 @@ public class BulletCollisionEvent : BaseCollisionEvent
             EnemyComponents enemyComponents = EnemyComponentsManager.Instance.GetComponents(collision.gameObject);
 
             enemyComponents.enemyHealth.DamegedByEnemy(_attackPower);
-            Debug.Log("’e‚ª“G‚É‚ ‚½‚Á‚½‚æII".Warning());
+            Debug.Log("’e‚ª“G‚É‚ ‚½‚Á‚½‚æII".BoldYellow());
         }
     }
+
     public override void OnCustomCollisionStay(SimpleShapeCollider2D collision)
     {
-        // Implement your logic here
+        
     }
 
     public override void OnCustomCollisionExit(SimpleShapeCollider2D collision)
     {
-        // Implement your logic here
+        
+    }
+
+    /// <summary>
+    /// ’e‚ÌUŒ‚—Í‚ğ•ÏX‚·‚é
+    /// </summary>
+    /// <param name="attackPower"></param>
+    public void ChengeBulletAttackPower(int attackPower)
+    {
+        _attackPower = attackPower;
     }
 }

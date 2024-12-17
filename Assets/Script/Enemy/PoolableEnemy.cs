@@ -7,11 +7,11 @@ public class PoolableEnemy : MonoBehaviour, IPooledObject<PoolableEnemy>
 {
     public IObjectPool<PoolableEnemy> ObjectPool { private get; set; }
 
-    private EnemyHealth _enemyHP;
+    private EnemyHP _enemyHP;
 
     private void Awake()
     {
-        _enemyHP = GetComponent<EnemyHealth>();
+        _enemyHP = GetComponent<EnemyHP>();
     }
 
     public void Initialize()

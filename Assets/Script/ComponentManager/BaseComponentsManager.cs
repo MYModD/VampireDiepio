@@ -70,6 +70,8 @@ public abstract class BaseComponentsManager<T, TComponents> : Diepio.Singleton<T
     /// </summary>
     protected abstract TComponents CreateComponents(GameObject obj);
 
+
+
     protected override void OnDestroy()
     {
         base.OnDestroy();

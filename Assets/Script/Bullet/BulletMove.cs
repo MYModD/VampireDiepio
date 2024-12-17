@@ -12,11 +12,17 @@ public class BulletMove : MonoBehaviour
     [Header("速度ベクトル")]
     public Vector2 _currentVelocity = default;
 
+
+
     private float _timerValue = default; // 時間計算用
+    private PoolableBullet _poolableBullet = default;
 
 
-    [SerializeField] private PoolableBullet poolableBullet = default;
 
+    private void Awake()
+    {
+        _poolableBullet = GetComponent<PoolableBullet>();
+    }
 
     private void FixedUpdate()
     {
@@ -25,7 +31,8 @@ public class BulletMove : MonoBehaviour
         if (_timerValue <= 0)
         {
             this.gameObject.SetActive(false);
-            poolableBullet.ReturnToPool();
+            _poolableBullet.ReturnToPool();
+            
         }
 
         // 慣性を持たせるために減速を追加
@@ -58,10 +65,5 @@ public class BulletMove : MonoBehaviour
     {
         _timerValue = _timer;
     }
-
-
-  
-   
-
 
 }
