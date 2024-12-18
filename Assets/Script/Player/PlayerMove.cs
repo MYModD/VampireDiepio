@@ -190,6 +190,8 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     private void OnDrawGizmos()
     {
+
+        GameStateManager gameStateManager = GameStateManager.Instance;
         // Gizmosを使用してベクトルを可視化
 
         // x, y のそれぞれの長さを計算

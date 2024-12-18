@@ -29,6 +29,7 @@ public class EnemyHP : MonoBehaviour
         _hp -= damageValue;
         if (_hp <= 0)
         {
+
             
             ScoreManager.Instance.AddScore(gameObject.tag);
             _poolableEnemy.ReturnToPool();

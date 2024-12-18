@@ -35,7 +35,6 @@ public class BulletCollisionEvent : BaseCollisionEvent
             EnemyComponents enemyComponents = EnemyComponentsManager.Instance.GetComponents(collision.gameObject);
 
             enemyComponents.enemyHealth.DamegedByEnemy(_attackPower);
-            Debug.Log("’e‚ª“G‚É‚ ‚½‚Á‚½‚æII".BoldYellow());
         }
     }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ScoreManager : Singleton<ScoreManager>
 {
-    [SerializeField] private int _score;
+     public int _score;
     [SerializeField] private int _enemyAddScore;
     [SerializeField] private int _debriAddScore;
 
@@ -40,7 +40,6 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public void AddScore(string objectTag)
     {
-        Debug.Log($"{objectTag} : ƒJƒEƒ“ƒg‚µ‚Ä‚é‚æ".BoldYellow());
 
         if (objectTag == _enemyTag)
         {

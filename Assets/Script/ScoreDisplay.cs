@@ -29,5 +29,7 @@ public class ScoreDisplay : MonoBehaviour
     private void UpdateScore(int score)
     {
         _scoreText.text = score.ToString($"d{_scoreDigit}");
+        
+
     }
 }
