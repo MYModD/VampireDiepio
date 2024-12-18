@@ -10,7 +10,6 @@ public class GameStart : MonoBehaviour
     
     public void GameStartButton()
     {
-        Debug.Log("‰Ÿ‚µ‚½‚æ");
         GameStateManager.Instance.ChangeGameStartState();
     }
 }

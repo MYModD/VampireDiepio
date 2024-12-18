@@ -23,7 +23,6 @@ public class EnemyCollisionEvent : BaseCollisionEvent
     public override void OnCustomCollisionEnter(SimpleShapeCollider2D collision)
     {
 
-        Debug.Log($"obj : {collision.gameObject.tag}");
         if (collision.gameObject.CompareTag(_playerTag))
         {
 
