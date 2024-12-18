@@ -18,7 +18,17 @@ public class PlayerHP : MonoBehaviour
         _hp -= _hitToDebrisDamage;
         if (_hp <= 0)
         {
-            Debug.Log("GameOver".BoldYellow());
+            GameStateManager.Instance.ChengeGameOverState();
+        }
+    }
+
+
+    public void DegreeHP(int damage)
+    {
+        _hp -= damage;
+        if (_hp <= 0)
+        {
+            GameStateManager.Instance.ChengeGameOverState();
         }
     }
 
