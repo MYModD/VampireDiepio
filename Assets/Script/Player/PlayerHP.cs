@@ -8,7 +8,7 @@ public class PlayerHP : MonoBehaviour
 {
 
     [Header("EnemyÇÃHP")]
-    [SerializeField] private int _hp;
+    [SerializeField] private int _enemyHP;
 
     [Header("HPê›íËíl , èâä˙âªÇ∑ÇÈHP")]
     [SerializeField] private int _initialHP;
@@ -24,15 +24,16 @@ public class PlayerHP : MonoBehaviour
     private void Awake()
     {
         _slider.value = 1;
-        _hp = _initialHP;
+        _enemyHP = _initialHP;
     }
 
     public void OnDebirsDamage()
     {
-        _hp -= _hitToDebrisDamage;
-        _slider.value = _hp / _initialHP;
+        _enemyHP -= _hitToDebrisDamage;
+        _slider.value = _enemyHP / _initialHP;
+        Debug.Log(_slider.value);
 
-        if (_hp <= 0)
+        if (_enemyHP <= 0)
         {
             GameStateManager.Instance.ChengeGameOverState();
         }
@@ -41,10 +42,11 @@ public class PlayerHP : MonoBehaviour
 
     public void DegreeHP(int damage)
     {
-        _hp -= damage;
-        _slider.value = _hp / _initialHP;
+        _enemyHP -= damage;
+        _slider.value = (float)_enemyHP / _initialHP;
+        Debug.Log(_slider.value);
 
-        if (_hp <= 0)
+        if (_enemyHP <= 0)
         {
             GameStateManager.Instance.ChengeGameOverState();
         }
