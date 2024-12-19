@@ -27,6 +27,11 @@ public class EnemyHP : MonoBehaviour
     public void DamegedByEnemy(int damageValue)
     {
         _hp -= damageValue;
+
+        // ‚±‚±‚ÉHPƒo[‚Ìˆ—“à—e‚ğ‘‚­ 
+
+
+
         if (_hp <= 0)
         {
 

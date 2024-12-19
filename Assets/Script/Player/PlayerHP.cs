@@ -45,7 +45,6 @@ public class PlayerHP : MonoBehaviour
     {
         _enemyHP -= damage;
         _slider.value = (float)_enemyHP / _initialHP;
-        Debug.Log(_slider.value);
 
         if (_enemyHP <= 0)
         {
