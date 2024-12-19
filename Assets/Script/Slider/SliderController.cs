@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using UnityEngine;
 
 public class SliderController : MonoBehaviour
 {
+
+    [Header("スライダーがプールに返却されるまでの時間")]
     [SerializeField] private float _returnTime = 5f;
 
     private SliderPostion _sliderPostioin;
@@ -25,16 +28,25 @@ public class SliderController : MonoBehaviour
         _sliderColor = GetComponent<SliderColor>();
         _poolableSlider = GetComponent<PoolableSlider>();
 
-        StartReturnTimer();
+       
     }
 
+
+    [Button]
     public void OnSliderChangeTrackingStart()
     {
-        // スライダー値変更時にタイマーをリセットここにスライダーのポジション追従する処理
+       
+
+
+
         StartReturnTimer();
         
     }
 
+
+    /// <summary>
+    /// タイマーを開始,0になったら色を透明にしてプールに返却
+    /// </summary>
     public async void StartReturnTimer()
     {
         _localTokenSource?.Cancel();
@@ -42,11 +54,17 @@ public class SliderController : MonoBehaviour
 
         try
         {
+
+            // 一定時間後にプールに返却
             await UniTask.Delay(TimeSpan.FromSeconds(_returnTime), cancellationToken: _localTokenSource.Token);
 
-            // SliderColorで色を変更するところで帰ってきたらプールに返却
+            // 一定時間後経過で色を透明に
             await _sliderColor.UniTaskColorChange(_localTokenSource.Token);
 
+            // その間HP変更がない場合リセット
+            // 何もなかったらプールに返却↓
+
+            InitializeControllValue();
             _poolableSlider.ReturnToPool();
         }
         catch (OperationCanceledException)
@@ -56,9 +74,15 @@ public class SliderController : MonoBehaviour
         }
     }
 
-    public void ResetValue()
+
+
+    /// <summary>
+    /// 値を初期化
+    /// </summary>
+    public void InitializeControllValue()
     {
 
-        
+        _sliderValue.InitializedSliderValue();
+        _sliderPostioin.InitializeSliderPostion();
     }
 }

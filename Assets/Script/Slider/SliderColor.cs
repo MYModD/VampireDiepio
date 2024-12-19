@@ -11,40 +11,49 @@ public class SliderColor : MonoBehaviour
     [SerializeField] private Image _imageBackground;
     [SerializeField] private Image _imagesFill;
 
-    [Header("Backgroundの最初の色と最後の色")]
-    [SerializeField] private Color _backGroundColor = default;
+    
 
-    [Header("Fillの最初の色と最後の色")]
-    [SerializeField] private Color _fillColor = default;
 
+    [Header("透明になる時間 そのあと返却")]
     [SerializeField] private float _chengeColorTime = 5f;
+
+    // 透明の色
+    private readonly Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
+
+    private Color _backGroundStartColor;
+    private Color _fillStartColor;
 
     private void Awake()
     {
-        _backGroundColor = _imageBackground.color;
-        _fillColor = _imagesFill.color;
+        _backGroundStartColor = _imageBackground.color;
+        _fillStartColor = _imagesFill.color;
+
     }
 
     public async UniTask UniTaskColorChange(CancellationToken cancellationToken)
     {
-        //変え始めてから始まるタイマー ／ 変える時間のT(0~1)でLerpで透明度をもたせる
+        try
+        {
+            float stopwatch = 0;
+            while (stopwatch > _chengeColorTime)
+            {
+                float lerpT = stopwatch / _chengeColorTime;
 
-        float stopwatch = 0; 
-        while (stopwatch > _chengeColorTime) {
-            float t = stopwatch / _chengeColorTime;
-            // _imageBackground.color = Color.RGBToHSV(new Color(0.9f, 0.7f, 0.1f, 1.0F));
-            // _imagesFill.color = Color.Lerp(_fillStartColor, _fillEndColor, t);
+                Color backGroundColor = Color.Lerp(_backGroundStartColor, TRANSPARENT_COLOR, lerpT);
+                _imageBackground.color = backGroundColor;
 
-            stopwatch += Time.deltaTime;
-            await UniTask.Yield();
+                Color fillColor = Color.Lerp(_fillStartColor, TRANSPARENT_COLOR, lerpT);
+                _imagesFill.color = fillColor;
+
+                stopwatch += Time.deltaTime;
+                await UniTask.Yield();
+            }
         }
-
-        // _imageBackground.color = _backGroundEndColor;
-        // _imagesFill.color = _fillEndColor;
-
+        catch (System.Exception)
+        {
+            throw;
+        }
     }
 
-    void Update()
-    {
-    }
+  
 }

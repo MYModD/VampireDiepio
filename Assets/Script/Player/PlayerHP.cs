@@ -17,6 +17,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     private int _hitToDebrisDamage = 1;
 
+    [Header("プレイヤー専用のスライダー")]
     [SerializeField] private Slider _slider;
 
 

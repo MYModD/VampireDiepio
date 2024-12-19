@@ -492,7 +492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &408311170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ Transform:
   m_GameObject: {fileID: 455750046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0302248, y: -0.54763186, z: 0}
+  m_LocalPosition: {x: -8.8, y: -0.4, z: 0}
   m_LocalScale: {x: 6.42, y: 6.42, z: 6.42}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688034211}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44db1d42ed992264cbcee5840f1ff634, type: 3}
   m_Name: 
@@ -1830,7 +1830,6 @@ GameObject:
   - component: {fileID: 2004412195}
   - component: {fileID: 2004412197}
   - component: {fileID: 2004412196}
-  - component: {fileID: 2004412198}
   m_Layer: 5
   m_Name: Velocity
   m_TagString: Untagged
@@ -1940,7 +1939,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -841.04846, w: -96.54468}
+  m_margin: {x: 0, y: 0, z: -1437.3899, w: -96.54468}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1954,20 +1953,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004412194}
   m_CullTransparentMesh: 1
---- !u!114 &2004412198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004412194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44db1d42ed992264cbcee5840f1ff634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 1688034213}
-  _updateInterval: 0.5
 --- !u!1 &2061629992
 GameObject:
   m_ObjectHideFlags: 0

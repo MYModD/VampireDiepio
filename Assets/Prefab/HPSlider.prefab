@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f5b7ad175f3524a8ab06287e0d9c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _imageBackground: {fileID: 0}
-  _imagesFill: {fileID: 0}
+  _imageBackground: {fileID: 8385129779563858631}
+  _imagesFill: {fileID: 8960619557488954884}
   _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
   _fillColor: {r: 0, g: 0, b: 0, a: 0}
   _chengeColorTime: 5

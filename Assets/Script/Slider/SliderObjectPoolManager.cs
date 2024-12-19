@@ -10,7 +10,7 @@ public class SliderObjectPoolManager : BaseObjectPool<PoolableSlider>
     protected override PoolableSlider Create()
     {
         PoolableSlider slider = base.Create();
-        slider.transform.parent = _pearentObjct;
+        //slider.transform.SetParent(_pearentObjct);
         return slider;
     }
 

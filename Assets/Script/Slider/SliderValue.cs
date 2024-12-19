@@ -11,6 +11,9 @@ public class SliderValue : MonoBehaviour
 
     private Slider _slider;
 
+
+    private const float SLIDER_MAX_VALUE = 1f;
+
     private void Awake()
     {
        _slider = GetComponent<Slider>();  
@@ -27,5 +30,15 @@ public class SliderValue : MonoBehaviour
 
     }
 
-    
+
+
+    /// <summary>
+    /// スライダーの値の初期化
+    /// </summary>
+    public void InitializedSliderValue()
+    {
+        _slider.value = SLIDER_MAX_VALUE;
+    }
+
+
 }
