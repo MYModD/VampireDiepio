@@ -93,7 +93,7 @@ public class PlayerMove : MonoBehaviour
         _currentVelocity = Vector2.ClampMagnitude(_currentVelocity, _velocityMaxSpeed);
 
         // デバッグ用テキスト更新
-        _debugText.text = $"Velocity: {_currentVelocity.sqrMagnitude}";
+        _debugText.text = $"Velocity: {(int)_currentVelocity.sqrMagnitude}";
 
         // 位置を更新
         transform.position += (Vector3)_currentVelocity * Time.fixedDeltaTime;
