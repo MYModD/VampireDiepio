@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5226320015018655224}
   - component: {fileID: 4898631876950478279}
   - component: {fileID: 5779984426464181816}
-  - component: {fileID: 626246797692421401}
   - component: {fileID: 5346332816793101866}
+  - component: {fileID: 626246797692421401}
   m_Layer: 5
   m_Name: HPSlider
   m_TagString: Untagged
@@ -121,8 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imageBackground: {fileID: 8385129779563858631}
   _imagesFill: {fileID: 8960619557488954884}
-  _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  _fillColor: {r: 0, g: 0, b: 0, a: 0}
   _chengeColorTime: 5
 --- !u!114 &5779984426464181816
 MonoBehaviour:
@@ -138,18 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offsetPostion: {x: 0, y: 0, z: 0}
   targetEnemy: {fileID: 0}
---- !u!114 &626246797692421401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120142077197841694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee33fe605b732648b5041ebfd62879a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5346332816793101866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +149,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentSliderValue: 0
+--- !u!114 &626246797692421401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120142077197841694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee33fe605b732648b5041ebfd62879a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5282325617415096697
 GameObject:
   m_ObjectHideFlags: 0
